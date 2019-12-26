@@ -29,3 +29,7 @@ add_subdirectory(engine)
 add_subdirectory(test)
 
 add_subdirectory(mathbender)
+add_subdirectory(demos/demo1-basicfeatures)
+add_subdirectory(demos/demo2-arkanoid)
+add_subdirectory(demos/demo3-foodthrowing)
+add_subdirectory(demos/demo4-conway)
