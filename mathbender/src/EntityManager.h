@@ -6,8 +6,18 @@
 #define GBA_SPRITE_ENGINE_PROJECT_ENTITYMANAGER_H
 
 
-class EntityManager {
+#include <vector>
+#include <memory>
+#include "Entity.h"
 
+class EntityManager {
+private:
+    std::unique_ptr<Entity> player;
+
+public:
+    EntityManager();
+
+    Entity* getPlayer() { return player.get(); };
 };
 
 

@@ -3,3 +3,9 @@
 //
 
 #include "Player.h"
+
+Player::Player() : Entity() {}
+
+void Player::move(int x, int y) {
+
+}

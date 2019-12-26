@@ -7,7 +7,12 @@
 
 
 class Entity {
+private:
 
+public:
+    Entity();
+
+    virtual void move(int x, int y) = 0;
 };
 
 

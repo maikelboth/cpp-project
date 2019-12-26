@@ -6,8 +6,15 @@
 #define GBA_SPRITE_ENGINE_PROJECT_PLAYER_H
 
 
-class Player {
+#include "Entity.h"
 
+class Player : public Entity {
+private:
+
+public:
+    Player();
+
+    void move(int x, int y) override;
 };
 
 
