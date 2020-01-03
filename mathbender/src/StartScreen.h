@@ -7,10 +7,12 @@
 
 
 #include <libgba-sprite-engine/scene.h>
+#include "EntityManager.h"
 
 class StartScreen : public Scene {
 private:
-
+    std::unique_ptr<Background> bg;
+    std::unique_ptr<EntityManager> entityManager;
 
 
 public:

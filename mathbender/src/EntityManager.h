@@ -8,16 +8,22 @@
 
 #include <vector>
 #include <memory>
+#include <libgba-sprite-engine/sprites/sprite.h>
 #include "Entity.h"
+#include "Player.h"
 
 class EntityManager {
 private:
-    std::unique_ptr<Entity> player;
+    std::unique_ptr<Player> player;
 
 public:
     EntityManager();
 
+    std::vector<Sprite *> getSprites();
+
     Entity* getPlayer() { return player.get(); };
+
+    void load();
 };
 
 
