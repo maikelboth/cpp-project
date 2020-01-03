@@ -7,6 +7,7 @@
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #include <memory>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include "sprites/kul.h"
 
 StartScreen::StartScreen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
@@ -34,5 +35,25 @@ void StartScreen::load() {
 //    bg->useMapScreenBlock(16);
 }
 
-void StartScreen::tick(u16 keys) {}
+void StartScreen::tick(u16 keys) {
+    if (keys & KEY_START) {
+
+    } else if (keys & KEY_A) {
+
+    } else if (keys & KEY_B) {
+
+    }
+    if (keys & KEY_LEFT) {
+        entityManager->getPlayer()->move(-1, 0);
+    }
+    if (keys & KEY_RIGHT) {
+        entityManager->getPlayer()->move(1, 0);
+    }
+    if (keys & KEY_UP) {
+        entityManager->getPlayer()->move(0, -1);
+    }
+    if (keys & KEY_DOWN) {
+        entityManager->getPlayer()->move(0, 1);
+    }
+}
 

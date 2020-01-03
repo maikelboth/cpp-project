@@ -9,7 +9,11 @@
 Player::Player() : Entity() {}
 
 void Player::move(int x, int y) {
+    playerSprite->moveTo(playerSprite->getPos().x + x, playerSprite->getPos().y + y);
+}
 
+void Player::setVelocity(int dx, int dy) {
+    playerSprite->setVelocity(dx, dy);
 }
 
 void Player::load() {
@@ -24,6 +28,6 @@ void Player::load() {
 
 std::vector<Sprite *> Player::getSprite() {
     return {
-            playerSprite.get()
+        playerSprite.get()
     };
 }
