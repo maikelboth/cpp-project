@@ -11,13 +11,16 @@
 #include "Entity.h"
 
 class Player : public Entity {
+    enum Direction {UP, DOWN, RIGHT, LEFT};
+
 private:
     std::unique_ptr<Sprite> playerSprite;
+    Direction spriteDirection;
 
 public:
     Player();
 
-    std::vector<Sprite *> getSprite();
+    Sprite * getSprite();
     void load();
     void move(int x, int y) override;
     void setVelocity(int dx, int dy) override;

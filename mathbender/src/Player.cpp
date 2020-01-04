@@ -26,8 +26,6 @@ void Player::load() {
             .buildPtr();
 }
 
-std::vector<Sprite *> Player::getSprite() {
-    return {
-        playerSprite.get()
-    };
+Sprite * Player::getSprite() {
+    return playerSprite.get();
 }

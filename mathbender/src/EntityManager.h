@@ -11,10 +11,12 @@
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include "Entity.h"
 #include "Player.h"
+#include "Boss.h"
 
 class EntityManager {
 private:
     std::unique_ptr<Player> player;
+    std::unique_ptr<Boss> boss;
 
 public:
     EntityManager();
@@ -22,6 +24,7 @@ public:
     std::vector<Sprite *> getSprites();
 
     Entity* getPlayer() { return player.get(); };
+    Entity* getBoss() { return boss.get(); };
 
     void load();
 };

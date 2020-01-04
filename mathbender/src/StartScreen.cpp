@@ -13,9 +13,7 @@
 StartScreen::StartScreen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Sprite *> StartScreen::sprites() {
-    return {
-        entityManager->getSprites()
-    };
+    return entityManager->getSprites();
 }
 
 std::vector<Background *> StartScreen::backgrounds() {
