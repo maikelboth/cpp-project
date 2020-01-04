@@ -24,6 +24,7 @@ public:
     void load();
     void move(int x, int y) override;
     void setVelocity(int dx, int dy) override;
+    void attack();
 };
 
 

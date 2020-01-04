@@ -29,3 +29,18 @@ void Player::load() {
 Sprite * Player::getSprite() {
     return playerSprite.get();
 }
+
+void Player::attack() {
+    // Direction of attack depending on sprite direction
+    int dx = 0;
+    int dy = 0;
+
+    switch (spriteDirection) {
+        case UP: dy = -1;
+        case DOWN: dy = 1;
+        case LEFT: dx = -1;
+        case RIGHT: dx = 1;
+    }
+
+    // Create attack with appropriate velocity dx,dy.
+}

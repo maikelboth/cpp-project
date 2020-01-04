@@ -12,19 +12,22 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Boss.h"
+#include "Attack.h"
 
 class EntityManager {
 private:
     std::unique_ptr<Player> player;
     std::unique_ptr<Boss> boss;
+    std::vector<std::unique_ptr<Attack>> attacks;
 
 public:
     EntityManager();
 
     std::vector<Sprite *> getSprites();
 
-    Entity* getPlayer() { return player.get(); };
-    Entity* getBoss() { return boss.get(); };
+    Player* getPlayer() { return player.get(); };
+    Boss* getBoss() { return boss.get(); };
+    std::vector<Attack *> getAttacks();
 
     void load();
 };

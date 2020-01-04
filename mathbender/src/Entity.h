@@ -10,7 +10,7 @@ class Entity {
 private:
 
 public:
-    Entity();
+    Entity() = default;
 
     virtual void move(int x, int y) = 0;
     virtual void setVelocity(int dx, int dy) = 0;
