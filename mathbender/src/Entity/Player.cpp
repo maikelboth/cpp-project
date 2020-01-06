@@ -3,13 +3,26 @@
 //
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 #include "Player.h"
-#include "sprites/kul.h"
+#include "../Sprite/kul.h"
+#include "Ball.h"
 
 Player::Player() : Entity() {}
 
 void Player::move(int x, int y) {
     playerSprite->moveTo(playerSprite->getPos().x + x, playerSprite->getPos().y + y);
+    if (abs(x) > abs(y)) {
+        if (x > 0) spriteDirection = RIGHT;
+        if (x < 0) spriteDirection = LEFT;
+    } else {
+        if (y > 0) spriteDirection = DOWN;
+        if (y < 0) spriteDirection = UP;
+    }
+}
+
+void Player::moveTo(int x, int y) {
+    playerSprite->moveTo(x, y);
 }
 
 void Player::setVelocity(int dx, int dy) {
@@ -30,17 +43,31 @@ Sprite * Player::getSprite() {
     return playerSprite.get();
 }
 
-void Player::attack() {
+Attack * Player::attack() {
     // Direction of attack depending on sprite direction
     int dx = 0;
     int dy = 0;
 
     switch (spriteDirection) {
-        case UP: dy = -1;
-        case DOWN: dy = 1;
-        case LEFT: dx = -1;
-        case RIGHT: dx = 1;
+        case UP:
+            dy = -1;
+            break;
+        case DOWN:
+            dy = 1;
+            break;
+        case LEFT:
+            dx = -1;
+            break;
+        case RIGHT:
+            dx = 1;
+            break;
     }
 
     // Create attack with appropriate velocity dx,dy.
+    Ball * ball = new Ball();
+    ball->load();
+    ball->moveTo(playerSprite->getPos().x, playerSprite->getPos().y);
+    ball->setVelocity(dx, dy);
+
+    return ball;
 }

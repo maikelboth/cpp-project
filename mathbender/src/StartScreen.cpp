@@ -3,12 +3,14 @@
 //
 
 #include "StartScreen.h"
+#include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #include <memory>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
-#include "sprites/kul.h"
+#include <libgba-sprite-engine/background/text_stream.h>
+#include "Sprite/kul.h"
 
 StartScreen::StartScreen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
@@ -36,9 +38,15 @@ void StartScreen::load() {
 void StartScreen::tick(u16 keys) {
     if (keys & KEY_START) {
 
-    } else if (keys & KEY_A) {
-
-    } else if (keys & KEY_B) {
+    }
+    if (keys & KEY_A) { // attack
+        Attack * newAttack = entityManager->getPlayer()->attack();
+        if (newAttack != nullptr) {
+            entityManager->addAttack(newAttack);
+            engine.get()->updateSpritesInScene();
+        }
+    }
+    if (keys & KEY_B) {
 
     }
     if (keys & KEY_LEFT) {

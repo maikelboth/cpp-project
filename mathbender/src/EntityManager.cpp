@@ -2,6 +2,7 @@
 // Created by Maikel on 26-12-2019.
 //
 
+#include <libgba-sprite-engine/background/text_stream.h>
 #include "EntityManager.h"
 
 EntityManager::EntityManager() {}
@@ -11,8 +12,8 @@ std::vector<Sprite *> EntityManager::getSprites() {
     sprites.push_back(player->getSprite());
     sprites.push_back(boss->getSprite());
 
-    for (auto & attack : attacks) {
-        sprites.push_back(attack->getSprite());
+    for (auto attack = attacks.begin(); attack != attacks.end(); ++attack) {
+        sprites.push_back(attack->get()->getSprite());
     }
 
     return sprites;
@@ -33,4 +34,8 @@ std::vector<Attack *> EntityManager::getAttacks() {
         result.push_back(attack.get());
     }
     return result;
+}
+
+void EntityManager::addAttack(Attack * newAttack) {
+    attacks.push_back(std::unique_ptr<Attack>(newAttack));
 }

@@ -9,10 +9,10 @@
 #include <vector>
 #include <memory>
 #include <libgba-sprite-engine/sprites/sprite.h>
-#include "Entity.h"
-#include "Player.h"
-#include "Boss.h"
-#include "Attack.h"
+#include "Entity/Entity.h"
+#include "Entity/Player.h"
+#include "Entity/Boss.h"
+#include "Entity/Attack.h"
 
 class EntityManager {
 private:
@@ -28,6 +28,8 @@ public:
     Player* getPlayer() { return player.get(); };
     Boss* getBoss() { return boss.get(); };
     std::vector<Attack *> getAttacks();
+
+    void addAttack(Attack * newAttack);
 
     void load();
 };

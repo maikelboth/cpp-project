@@ -4,12 +4,16 @@
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Boss.h"
-#include "sprites/SpriteBoss.h"
+#include "../Sprite/SpriteBoss.h"
 
 Boss::Boss() : Entity() {}
 
 void Boss::move(int x, int y) {
     bossSprite->moveTo(bossSprite->getPos().x + x, bossSprite->getPos().y + y);
+}
+
+void Boss::moveTo(int x, int y) {
+    bossSprite->moveTo(x, y);
 }
 
 void Boss::setVelocity(int dx, int dy) {

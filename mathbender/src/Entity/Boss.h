@@ -19,7 +19,8 @@ public:
 
     Sprite * getSprite();
     void load();
-    void move(int x, int y) override;
+    void move(int x, int y);
+    void moveTo(int x, int y) override;
     void setVelocity(int dx, int dy) override;
 };
 
