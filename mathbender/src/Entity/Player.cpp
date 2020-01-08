@@ -66,7 +66,7 @@ Attack * Player::attack() {
     // Create attack with appropriate velocity dx,dy.
     Ball * ball = new Ball();
     ball->load();
-    ball->moveTo(playerSprite->getPos().x, playerSprite->getPos().y);
+    ball->moveTo(playerSprite->getCenter().x - (ball->getSprite()->getWidth()/2), playerSprite->getCenter().y - (ball->getSprite()->getHeight()/2));
     ball->setVelocity(dx, dy);
 
     return ball;
