@@ -29,6 +29,7 @@ public:
     Boss* getBoss() { return boss.get(); };
     std::vector<Attack *> getAttacks();
 
+    bool checkCollusions();
     void addAttack(Attack * newAttack);
 
     void load();

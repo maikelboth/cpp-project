@@ -36,6 +36,9 @@ void StartScreen::load() {
 }
 
 void StartScreen::tick(u16 keys) {
+    if (entityManager->checkCollusions()) engine->updateSpritesInScene();
+
+
     if (keys & KEY_START) {
 
     }
@@ -43,7 +46,7 @@ void StartScreen::tick(u16 keys) {
         Attack * newAttack = entityManager->getPlayer()->attack();
         if (newAttack != nullptr) {
             entityManager->addAttack(newAttack);
-            engine.get()->updateSpritesInScene();
+            engine->updateSpritesInScene();
         }
     }
     if (keys & KEY_B) {

@@ -3,6 +3,7 @@
 //
 
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba_engine.h>
 #include "EntityManager.h"
 
 EntityManager::EntityManager() {}
@@ -12,8 +13,8 @@ std::vector<Sprite *> EntityManager::getSprites() {
     sprites.push_back(player->getSprite());
     sprites.push_back(boss->getSprite());
 
-    for (auto attack = attacks.begin(); attack != attacks.end(); ++attack) {
-        sprites.push_back(attack->get()->getSprite());
+    for (auto & attack : attacks) {
+        sprites.push_back(attack.get()->getSprite());
     }
 
     return sprites;
@@ -38,4 +39,16 @@ std::vector<Attack *> EntityManager::getAttacks() {
 
 void EntityManager::addAttack(Attack * newAttack) {
     attacks.push_back(std::unique_ptr<Attack>(newAttack));
+}
+
+bool EntityManager::checkCollusions() {
+    for (auto attack = attacks.begin(); attack != attacks.end(); attack++) {
+        if (attack->get()->getSprite()->isOffScreen()) {
+            attacks.erase(attack--);
+            // TODO: Properly remove sprite from screen
+            return true;
+        }
+    }
+
+    return false;
 }
