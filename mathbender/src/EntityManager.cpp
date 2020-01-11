@@ -51,7 +51,9 @@ void EntityManager::collisionCheck() {
     }
 }
 
-void EntityManager::reduceAttackCooldowns(int amount) {
-    if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(amount);
-    if (player->isAttackOnCooldown()) player->reduceAttackCooldown(amount);
+void EntityManager::tick() {
+    if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(1);
+    if (player->isAttackOnCooldown()) player->reduceAttackCooldown(1);
+
+    collisionCheck();
 }

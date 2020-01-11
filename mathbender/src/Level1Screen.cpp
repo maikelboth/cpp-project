@@ -51,8 +51,7 @@ void Level1Screen::tick(u16 keys) {
     TextStream::instance().setText(std::string(engine->getTimer()->to_string()), 2, 0);
     TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
-    entityManager->reduceAttackCooldowns(1);
-    entityManager->collisionCheck();
+    entityManager->tick();
     engine->updateSpritesInScene();
 
     if (keys & KEY_START) {

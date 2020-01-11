@@ -6,7 +6,7 @@
 #include "Boss.h"
 #include "../Sprite/SpriteBoss.h"
 
-Boss::Boss() : Entity() {}
+Boss::Boss() {}
 
 void Boss::move(int x, int y) {
     bossSprite->moveTo(bossSprite->getPos().x + x, bossSprite->getPos().y + y);

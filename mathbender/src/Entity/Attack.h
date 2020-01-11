@@ -7,9 +7,8 @@
 
 
 #include <libgba-sprite-engine/sprites/sprite.h>
-#include "Entity.h"
 
-class Attack : public Entity {
+class Attack {
 
 protected:
 private:
@@ -21,8 +20,8 @@ public:
     virtual Type getAttackType() = 0;
     virtual Sprite * getSprite() = 0;
     virtual void load() = 0;
-    void moveTo(int x, int y) override = 0;
-    void setVelocity(int dx, int dy) override = 0;
+    virtual void moveTo(int x, int y) = 0;
+    virtual void setVelocity(int dx, int dy) = 0;
 };
 
 

@@ -9,7 +9,6 @@
 #include <vector>
 #include <memory>
 #include <libgba-sprite-engine/sprites/sprite.h>
-#include "Entity/Entity.h"
 #include "Entity/Player.h"
 #include "Entity/Boss.h"
 #include "Entity/Attack.h"
@@ -31,7 +30,7 @@ public:
 
     void collisionCheck();
     void addAttack(Attack * newAttack);
-    void reduceAttackCooldowns(int amount);
+    void tick();
 
     void load();
 };

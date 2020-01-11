@@ -8,14 +8,12 @@
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <vector>
-#include "Entity.h"
 #include "Attack.h"
 
-class Player : public Entity {
+class Player {
 
 private:
     std::unique_ptr<Sprite> playerSprite;
-    Direction spriteDirection;
 
     int maxHealth = 20;
     int health = maxHealth;
@@ -28,8 +26,8 @@ public:
     Sprite * getSprite();
     void load();
     void move(int x, int y);
-    void moveTo(int x, int y) override;
-    void setVelocity(int dx, int dy) override;
+    void moveTo(int x, int y);
+    void setVelocity(int dx, int dy);
     Attack * attack();
 
     bool isAttackOnCooldown() { return attackCooldown > 0; };

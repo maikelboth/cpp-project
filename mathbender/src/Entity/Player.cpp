@@ -8,17 +8,10 @@
 #include "../Sprite/kul.h"
 #include "Ball.h"
 
-Player::Player() : Entity() {}
+Player::Player() {}
 
 void Player::move(int x, int y) {
     playerSprite->moveTo(playerSprite->getPos().x + x, playerSprite->getPos().y + y);
-    if (abs(x) > abs(y)) {
-        if (x > 0) spriteDirection = RIGHT;
-        if (x < 0) spriteDirection = LEFT;
-    } else {
-        if (y > 0) spriteDirection = DOWN;
-        if (y < 0) spriteDirection = UP;
-    }
 }
 
 void Player::moveTo(int x, int y) {
@@ -56,30 +49,11 @@ Sprite * Player::getSprite() {
 Attack * Player::attack() {
     attackCooldown = maxAttackCooldown;
 
-    // Direction of attack depending on sprite direction
-    int dx = 0;
-    int dy = 0;
-
-    switch (spriteDirection) {
-        case UP:
-            dy = -1;
-            break;
-        case DOWN:
-            dy = 1;
-            break;
-        case LEFT:
-            dx = -1;
-            break;
-        case RIGHT:
-            dx = 1;
-            break;
-    }
-
     // Create attack with appropriate velocity dx,dy.
     Ball * ball = new Ball();
     ball->load();
     ball->moveTo(playerSprite->getCenter().x - (ball->getSprite()->getWidth()/2), playerSprite->getCenter().y - (ball->getSprite()->getHeight()/2));
-    ball->setVelocity(dx, dy);
+    ball->setVelocity(0, -1);
 
     return ball;
 }
