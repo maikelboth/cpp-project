@@ -10,6 +10,7 @@ class Entity {
 private:
 
 public:
+    enum Direction {UP, DOWN, RIGHT, LEFT};
     Entity() = default;
 
     virtual void moveTo(int x, int y) = 0;

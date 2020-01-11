@@ -20,6 +20,16 @@ void Boss::setVelocity(int dx, int dy) {
     bossSprite->setVelocity(dx, dy);
 }
 
+void Boss::reduceAttackCooldown(int ticks) {
+    if (ticks > attackCooldown) attackCooldown = 0;
+    else attackCooldown -= ticks;
+}
+
+void Boss::setHealth(int amount) {
+    if (amount > health) health = 0;
+    else health -= amount;
+}
+
 void Boss::load() {
     SpriteBuilder<Sprite> builder;
 

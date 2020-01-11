@@ -49,11 +49,9 @@ void Level1Screen::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(entityManager->getAttacks().size()), 0, 0);
     TextStream::instance().setText(std::to_string(ticks), 1, 0);
     TextStream::instance().setText(std::string(engine->getTimer()->to_string()), 2, 0);
+    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
-
-
-
-    //if (entityManager->checkCollusions()) engine->updateSpritesInScene();
+    entityManager->reduceAttackCooldowns(1);
     entityManager->collisionCheck();
     engine->updateSpritesInScene();
 
@@ -65,11 +63,13 @@ void Level1Screen::tick(u16 keys) {
         engine->setScene(new MainScreen(engine));
     }
     if (keys & KEY_A) { // attack
-        totalAttacks++;
-        Attack* newAttack = entityManager->getPlayer()->attack();
-        if (newAttack != nullptr) {
-            entityManager->addAttack(newAttack);
-            engine->updateSpritesInScene();
+        if (!entityManager->getPlayer()->isAttackOnCooldown()) {
+            totalAttacks++;
+            Attack* newAttack = entityManager->getPlayer()->attack();
+            if (newAttack != nullptr) {
+                entityManager->addAttack(newAttack);
+                engine->updateSpritesInScene();
+            }
         }
     }
     if (keys & KEY_B) {

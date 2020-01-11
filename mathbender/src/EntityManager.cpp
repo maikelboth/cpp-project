@@ -41,17 +41,6 @@ void EntityManager::addAttack(Attack * newAttack) {
     attacks.push_back(std::unique_ptr<Attack>(newAttack));
 }
 
-bool EntityManager::checkCollusions() {
-    for (auto attack = attacks.begin(); attack != attacks.end(); attack++) {
-        if (attack->get()->getSprite()->isOffScreen()) {
-            attacks.erase(attack--);
-            // TODO: Properly remove sprite from screen
-            return true;
-        }
-    }
-    return false;
-}
-
 void EntityManager::collisionCheck() {
     int n = attacks.size();
     for (auto a = attacks.begin(); a != attacks.end(); a++) {
@@ -60,4 +49,9 @@ void EntityManager::collisionCheck() {
             a--;
         }
     }
+}
+
+void EntityManager::reduceAttackCooldowns(int amount) {
+    if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(amount);
+    if (player->isAttackOnCooldown()) player->reduceAttackCooldown(amount);
 }

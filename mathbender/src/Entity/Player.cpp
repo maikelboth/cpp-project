@@ -29,6 +29,16 @@ void Player::setVelocity(int dx, int dy) {
     playerSprite->setVelocity(dx, dy);
 }
 
+void Player::reduceAttackCooldown(int ticks) {
+    if (ticks > attackCooldown) attackCooldown = 0;
+    else attackCooldown -= ticks;
+}
+
+void Player::setHealth(int amount) {
+    if (amount > health) health = 0;
+    else health -= amount;
+}
+
 void Player::load() {
     SpriteBuilder<Sprite> builder;
 
@@ -44,6 +54,8 @@ Sprite * Player::getSprite() {
 }
 
 Attack * Player::attack() {
+    attackCooldown = maxAttackCooldown;
+
     // Direction of attack depending on sprite direction
     int dx = 0;
     int dy = 0;

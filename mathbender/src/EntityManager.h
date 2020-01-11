@@ -29,10 +29,9 @@ public:
     Boss* getBoss() { return boss.get(); };
     std::vector<Attack *> getAttacks();
 
-    bool checkCollusions();
     void collisionCheck();
     void addAttack(Attack * newAttack);
-
+    void reduceAttackCooldowns(int amount);
 
     void load();
 };
