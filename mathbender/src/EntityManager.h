@@ -30,7 +30,9 @@ public:
     std::vector<Attack *> getAttacks();
 
     bool checkCollusions();
+    void collisionCheck();
     void addAttack(Attack * newAttack);
+
 
     void load();
 };

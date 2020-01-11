@@ -49,6 +49,15 @@ bool EntityManager::checkCollusions() {
             return true;
         }
     }
-
     return false;
+}
+
+void EntityManager::collisionCheck() {
+    int n = attacks.size();
+    for (auto a = attacks.begin(); a != attacks.end(); a++) {
+        if (a->get()->getSprite()->isOffScreen()) {
+            attacks.erase(a);
+            a--;
+        }
+    }
 }
