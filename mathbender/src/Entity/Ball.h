@@ -15,9 +15,10 @@ private:
     std::unique_ptr<Sprite> ballSprite;
 public:
     Ball() = default;
+    ~Ball();
 
     Type getAttackType() override { return attackType; }
-    Sprite * getSprite() override { return ballSprite.get(); };
+    Sprite* getSprite() override { return ballSprite.get(); };
     void load() override;
     void move(int x, int y);
     void moveTo(int x, int y) override;

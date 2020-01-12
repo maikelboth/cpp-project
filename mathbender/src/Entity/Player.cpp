@@ -5,7 +5,8 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "Player.h"
-#include "../Sprite/kul.h"
+//#include "../Sprite/kul.h"
+#include "../Sprite/player.h"
 #include "Ball.h"
 
 Player::Player() {}
@@ -36,8 +37,8 @@ void Player::load() {
     SpriteBuilder<Sprite> builder;
 
     playerSprite = builder
-            .withData(kulTiles, sizeof(kulTiles))
-            .withSize(SIZE_64_32)
+            .withData(playerTiles, sizeof(playerTiles))
+            .withSize(SIZE_16_16)
             .withLocation(30, 30)
             .buildPtr();
 }

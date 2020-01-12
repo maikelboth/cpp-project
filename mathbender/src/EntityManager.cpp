@@ -38,15 +38,17 @@ std::vector<Attack *> EntityManager::getAttacks() {
 }
 
 void EntityManager::addAttack(Attack * newAttack) {
-    attacks.push_back(std::unique_ptr<Attack>(newAttack));
+    newAttack->getSprite()->setStayWithinBounds(false);
+    attacks.insert(attacks.begin(), std::unique_ptr<Attack>(newAttack));
+    //attacks.push_back(std::unique_ptr<Attack>(newAttack));
 }
 
 void EntityManager::collisionCheck() {
     int n = attacks.size();
-    for (auto a = attacks.begin(); a != attacks.end(); a++) {
-        if (a->get()->getSprite()->isOffScreen()) {
-            attacks.erase(a);
-            a--;
+    for (auto a = attacks.begin(); a < attacks.end(); a++) {
+        if (a->get()->getSprite()->getY() > 128) attacks.erase(a);
+        else if (a->get()->getSprite()->getY() < 24) {
+            a->get()->moveTo(0, 160); // sends sprites to the shadow-realm
         }
     }
 }

@@ -36,7 +36,7 @@ void Boss::load() {
     bossSprite = builder
             .withData(bossTiles, sizeof(bossTiles))
             .withSize(SIZE_64_32)
-            .withLocation(60, 60)
+            .withLocation(0, 128)
             .buildPtr();
 }
 

@@ -23,12 +23,12 @@ private:
 public:
     Player();
 
-    Sprite * getSprite();
+    Sprite* getSprite();
     void load();
     void move(int x, int y);
     void moveTo(int x, int y);
     void setVelocity(int dx, int dy);
-    Attack * attack();
+    Attack* attack();
 
     bool isAttackOnCooldown() { return attackCooldown > 0; };
     void reduceAttackCooldown(int ticks);

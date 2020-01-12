@@ -15,6 +15,7 @@ private:
     std::unique_ptr<EntityManager> entityManager;
     int totalAttacks = 0;
     int ticks = 0;
+    int attackCountdown = 20;
 
 public:
 
@@ -23,6 +24,7 @@ public:
 
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
+
 
     void load() override;
     void tick(u16 keys) override;

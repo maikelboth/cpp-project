@@ -26,3 +26,9 @@ void Ball::load() {
             .withSize(SIZE_8_8)
             .buildPtr();
 }
+
+
+Ball::~Ball(){
+    ballSprite.get()->moveTo(0, 0);
+    ballSprite.reset();
+}

@@ -11,7 +11,8 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "Sprite/level1BG.h"
-#include "Sprite/kul.h"
+//#include "Sprite/kul.h"
+#include "Sprite/player.h"
 
 #include "MainScreen.h"
 
@@ -33,7 +34,7 @@ void Level1Screen::load() {
     entityManager = std::make_unique<EntityManager>();
     entityManager->load();
 
-    foregroundPalette = std::make_unique<ForegroundPaletteManager>(sharedPal, sizeof(sharedPal));
+    foregroundPalette = std::make_unique<ForegroundPaletteManager>(playerPal, sizeof(playerPal));
     backgroundPalette = std::make_unique<BackgroundPaletteManager>(level1BGPal, sizeof(level1BGPal));
 
     bg = std::make_unique<Background>(1, level1BGTiles, sizeof(level1BGTiles), level1BGMap, sizeof(level1BGMap));
@@ -41,18 +42,15 @@ void Level1Screen::load() {
 }
 
 void Level1Screen::tick(u16 keys) {
-    if(engine->getTimer()->getTotalMsecs() < 1000) {
-        ticks++;
-    } else {
-        engine->getTimer()->stop();
-    }
-    TextStream::instance().setText(std::to_string(entityManager->getAttacks().size()), 0, 0);
+    int attackAmount = entityManager->getAttacks().size();
+
+    TextStream::instance().setText(std::to_string(entityManager->getSprites().size()), 0, 0);
     TextStream::instance().setText(std::to_string(ticks), 1, 0);
-    TextStream::instance().setText(std::string(engine->getTimer()->to_string()), 2, 0);
+    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
     TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
     entityManager->tick();
-    engine->updateSpritesInScene();
+
 
     if (keys & KEY_START) {
 
@@ -67,7 +65,7 @@ void Level1Screen::tick(u16 keys) {
             Attack* newAttack = entityManager->getPlayer()->attack();
             if (newAttack != nullptr) {
                 entityManager->addAttack(newAttack);
-                engine->updateSpritesInScene();
+                //engine->updateSpritesInScene();
             }
         }
     }
@@ -85,6 +83,10 @@ void Level1Screen::tick(u16 keys) {
     }
     if (keys & KEY_DOWN) {
         entityManager->getPlayer()->move(0, 1);
+    }
+
+    if(attackAmount != entityManager->getAttacks().size()){
+        engine->updateSpritesInScene();
     }
 }
 
