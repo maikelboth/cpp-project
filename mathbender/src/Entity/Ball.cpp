@@ -4,7 +4,8 @@
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Ball.h"
-#include "../Sprite/SpriteBall.h"
+//#include "../Sprite/SpriteBall.h"
+#include "../Sprite/player.h"
 
 void Ball::move(int x, int y) {
     ballSprite->moveTo(ballSprite->getPos().x + x, ballSprite->getPos().y + y);
@@ -22,8 +23,9 @@ void Ball::load() {
     SpriteBuilder<Sprite> builder;
 
     ballSprite = builder
-            .withData(ballTiles, sizeof(ballTiles))
-            .withSize(SIZE_8_8)
+            .withData(F3Tiles, sizeof(F3Tiles))
+            .withAnimated(12, 3)
+            .withSize(SIZE_8_32)
             .buildPtr();
 }
 

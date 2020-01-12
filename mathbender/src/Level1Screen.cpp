@@ -34,7 +34,7 @@ void Level1Screen::load() {
     entityManager = std::make_unique<EntityManager>();
     entityManager->load();
 
-    foregroundPalette = std::make_unique<ForegroundPaletteManager>(playerPal, sizeof(playerPal));
+    foregroundPalette = std::make_unique<ForegroundPaletteManager>(sharedPal, sizeof(sharedPal));
     backgroundPalette = std::make_unique<BackgroundPaletteManager>(level1BGPal, sizeof(level1BGPal));
 
     bg = std::make_unique<Background>(1, level1BGTiles, sizeof(level1BGTiles), level1BGMap, sizeof(level1BGMap));
@@ -68,9 +68,10 @@ void Level1Screen::tick(u16 keys) {
                 //engine->updateSpritesInScene();
             }
         }
+        //entityManager->getBoss()->getSprite()->animateToFrame(0);
     }
     if (keys & KEY_B) {
-
+        entityManager->getBoss()->getSprite()->animateToFrame(8);
     }
     if (keys & KEY_LEFT) {
         entityManager->getPlayer()->move(-1, 0);

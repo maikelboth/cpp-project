@@ -12,11 +12,17 @@
 #define MAX_SPRITE_SIZE 128
 #define MAX_AFFINE_SIZE 31
 
+
 void SpriteManager::set(std::vector<Sprite*> sprites) {
     initialized = false;
-
     this->sprites.clear();
     this->sprites.insert(this->sprites.end(), sprites.begin(), sprites.end());
+    /* primitieve niet werkende oplossing voor rood flikkeren van de sprites
+    for (int i=0; i<this->sprites.size(); i++) {
+        if (this->sprites[i]->animating) {
+            this->sprites[i]->update();
+        }
+    }*/
 }
 
 void SpriteManager::add(Sprite* sprite) {

@@ -48,7 +48,7 @@ void EntityManager::collisionCheck() {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
         if (a->get()->getSprite()->getY() > 128) attacks.erase(a);
         else if (a->get()->getSprite()->getY() < 24) {
-            a->get()->moveTo(0, 160); // sends sprites to the shadow-realm
+            a->get()->moveTo(0, 200); // sends sprites to the shadow-realm
         }
     }
 }

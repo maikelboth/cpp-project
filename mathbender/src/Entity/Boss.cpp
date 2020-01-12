@@ -5,6 +5,7 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Boss.h"
 #include "../Sprite/SpriteBoss.h"
+#include "../Sprite/player.h"
 
 Boss::Boss() {}
 
@@ -34,9 +35,10 @@ void Boss::load() {
     SpriteBuilder<Sprite> builder;
 
     bossSprite = builder
-            .withData(bossTiles, sizeof(bossTiles))
-            .withSize(SIZE_64_32)
-            .withLocation(0, 128)
+            .withData(B3Tiles, sizeof(B3Tiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(1,8, 5)
+            .withLocation(120-16, 32)
             .buildPtr();
 }
 

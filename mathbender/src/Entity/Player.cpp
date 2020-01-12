@@ -39,7 +39,7 @@ void Player::load() {
     playerSprite = builder
             .withData(playerTiles, sizeof(playerTiles))
             .withSize(SIZE_16_16)
-            .withLocation(30, 30)
+            .withLocation(120 - playerSprite->getWidth()/2, 100)
             .buildPtr();
 }
 
