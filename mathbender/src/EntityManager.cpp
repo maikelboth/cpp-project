@@ -4,6 +4,7 @@
 
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
+#include <algorithm>
 #include "EntityManager.h"
 
 EntityManager::EntityManager() {}
@@ -40,20 +41,35 @@ std::vector<Attack *> EntityManager::getAttacks() {
 void EntityManager::addAttack(Attack * newAttack) {
     newAttack->getSprite()->setStayWithinBounds(false);
     attacks.insert(attacks.begin(), std::unique_ptr<Attack>(newAttack));
-    //attacks.push_back(std::unique_ptr<Attack>(newAttack));
 }
 
-void EntityManager::collisionCheck() {
-    int n = attacks.size();
+void EntityManager::removeAttack(Attack* attack) {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
-        if (a->get()->getSprite()->getY() > 128) attacks.erase(a);
-        else if (a->get()->getSprite()->getY() < 24) {
+        if (a->get() == attack) {
             a->get()->moveTo(0, 200); // sends sprites to the shadow-realm
         }
     }
 }
 
+void EntityManager::collisionCheck() {
+    for (auto a = attacks.begin(); a < attacks.end(); a++) {
+        if (a->get()->getSprite()->collidesWith(*boss->getSprite())) {
+            // Reduce boss health
+        } else if (a->get()->getSprite()->collidesWith(*player->getSprite())) {
+            // Reduce player health
+        }
+    }
+}
+
+void EntityManager::removeAttacksInShadowRealm() {
+    for (auto a = attacks.begin(); a < attacks.end(); a++) {
+        if (a->get()->getSprite()->getY() > 128) attacks.erase(a);
+    }
+}
+
 void EntityManager::tick() {
+    removeAttacksInShadowRealm();
+
     if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(1);
     if (player->isAttackOnCooldown()) player->reduceAttackCooldown(1);
 

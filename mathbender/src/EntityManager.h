@@ -18,6 +18,7 @@ private:
     std::unique_ptr<Player> player;
     std::unique_ptr<Boss> boss;
     std::vector<std::unique_ptr<Attack>> attacks;
+    void removeAttacksInShadowRealm();
 
 public:
     EntityManager();
@@ -29,7 +30,8 @@ public:
     std::vector<Attack *> getAttacks();
 
     void collisionCheck();
-    void addAttack(Attack * newAttack);
+    void addAttack(Attack* newAttack);
+    void removeAttack(Attack* attack);
     void tick();
 
     void load();

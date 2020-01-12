@@ -30,6 +30,28 @@ std::vector<Background *> Level1Screen::backgrounds() {
     };
 }
 
+bool Level1Screen::isOutOfMap(Sprite* sprite) {
+    int xLeft = sprite->getX();
+    int xRight = sprite->getX() + sprite->getWidth();
+    int yTop = sprite->getY();
+    int yBottom = sprite->getY() + sprite->getHeight();
+
+    return isOutOfMap(xLeft, xRight, yTop, yBottom);
+}
+
+bool Level1Screen::isOutOfMap(int xLeft, int xRight, int yTop, int yBottom) {
+    return (yTop < 25 || yBottom > 140) || (xLeft < 20 || xRight > 220) || ((xLeft < 46 || xRight > 194) && yTop < 57) || ((xLeft < 62 || xRight > 178) && yTop < 41);
+}
+
+bool Level1Screen::canMove(Sprite* sprite, int dx, int dy) {
+    int xLeft = sprite->getX() + dx;
+    int xRight = sprite->getX() + sprite->getWidth() + dx;
+    int yTop = sprite->getY() + dy;
+    int yBottom = sprite->getY() + sprite->getHeight() + dy;
+
+    return !isOutOfMap(xLeft, xRight, yTop, yBottom);
+}
+
 void Level1Screen::load() {
     entityManager = std::make_unique<EntityManager>();
     entityManager->load();
@@ -51,6 +73,11 @@ void Level1Screen::tick(u16 keys) {
 
     entityManager->tick();
 
+    for (Attack* attack : entityManager.get()->getAttacks()) {
+        if (isOutOfMap(attack->getSprite())) {
+            entityManager->removeAttack(attack);
+        }
+    }
 
     if (keys & KEY_START) {
 
@@ -74,16 +101,20 @@ void Level1Screen::tick(u16 keys) {
         entityManager->getBoss()->getSprite()->animateToFrame(8);
     }
     if (keys & KEY_LEFT) {
-        entityManager->getPlayer()->move(-1, 0);
+        if (canMove(entityManager->getPlayer()->getSprite(), -1, 0))
+            entityManager->getPlayer()->move(-1, 0);
     }
     if (keys & KEY_RIGHT) {
-        entityManager->getPlayer()->move(1, 0);
+        if (canMove(entityManager->getPlayer()->getSprite(), 1, 0))
+            entityManager->getPlayer()->move(1, 0);
     }
     if (keys & KEY_UP) {
-        entityManager->getPlayer()->move(0, -1);
+        if (canMove(entityManager->getPlayer()->getSprite(), 0, -1))
+            entityManager->getPlayer()->move(0, -1);
     }
     if (keys & KEY_DOWN) {
-        entityManager->getPlayer()->move(0, 1);
+        if (canMove(entityManager->getPlayer()->getSprite(), 0, 1))
+            entityManager->getPlayer()->move(0, 1);
     }
 
     if(attackAmount != entityManager->getAttacks().size()){
