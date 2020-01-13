@@ -51,9 +51,9 @@ Attack * Player::attack() {
     attackCooldown = maxAttackCooldown;
 
     // Create attack with appropriate velocity dx,dy.
-    Ball * ball = new Ball();
+    Ball* ball = new Ball(true);
     ball->load();
-    ball->moveTo(playerSprite->getCenter().x - (ball->getSprite()->getWidth()/2), playerSprite->getCenter().y - (ball->getSprite()->getHeight()/2));
+    ball->moveTo(playerSprite->getCenter().x - (ball->getSprite()->getWidth()/2), playerSprite->getY() + playerSprite->getHeight() - ball->getSprite()->getHeight());
     ball->setVelocity(0, -1);
 
     return ball;

@@ -22,6 +22,7 @@ public:
     virtual void load() = 0;
     virtual void moveTo(int x, int y) = 0;
     virtual void setVelocity(int dx, int dy) = 0;
+    virtual bool isFriendly() = 0;
 };
 
 

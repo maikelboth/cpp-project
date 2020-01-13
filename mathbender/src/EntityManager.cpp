@@ -53,10 +53,12 @@ void EntityManager::removeAttack(Attack* attack) {
 
 void EntityManager::collisionCheck() {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
-        if (a->get()->getSprite()->collidesWith(*boss->getSprite())) {
+        if (a->get()->getSprite()->collidesWith(*boss->getSprite()) && a->get()->isFriendly()) {
             // Reduce boss health
-        } else if (a->get()->getSprite()->collidesWith(*player->getSprite())) {
+            removeAttack(a->get());
+        } else if (a->get()->getSprite()->collidesWith(*player->getSprite()) && !a->get()->isFriendly()) {
             // Reduce player health
+            removeAttack(a->get());
         }
     }
 }

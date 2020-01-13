@@ -73,7 +73,7 @@ void Level1Screen::tick(u16 keys) {
 
     entityManager->tick();
 
-    for (Attack* attack : entityManager.get()->getAttacks()) {
+    for (Attack* attack : entityManager->getAttacks()) {
         if (isOutOfMap(attack->getSprite())) {
             entityManager->removeAttack(attack);
         }

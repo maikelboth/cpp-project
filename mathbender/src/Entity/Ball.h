@@ -13,8 +13,9 @@ class Ball : public Attack {
 private:
     Type attackType = PROJECTILE;
     std::unique_ptr<Sprite> ballSprite;
+    bool friendly;
 public:
-    Ball() = default;
+    Ball(bool isFriendly) { friendly = isFriendly;};
     ~Ball();
 
     Type getAttackType() override { return attackType; }
@@ -23,6 +24,7 @@ public:
     void move(int x, int y);
     void moveTo(int x, int y) override;
     void setVelocity(int dx, int dy) override;
+    bool isFriendly() override { return friendly; };
 };
 
 
