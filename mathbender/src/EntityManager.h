@@ -32,7 +32,11 @@ public:
     void collisionCheck();
     void addAttack(Attack* newAttack);
     void removeAttack(Attack* attack);
-    void tick();
+    bool isOutOfMap(Sprite* sprite);
+    bool isOutOfMap(int xLeft, int xRight, int yTop, int yBottom);
+    bool canMove(Sprite* sprite, int dx, int dy);
+    void tick(u16 keys);
+    void bossAI();
 
     void load();
 };

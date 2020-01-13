@@ -69,11 +69,88 @@ void EntityManager::removeAttacksInShadowRealm() {
     }
 }
 
-void EntityManager::tick() {
+bool EntityManager::isOutOfMap(Sprite* sprite) {
+    int xLeft = sprite->getX();
+    int xRight = sprite->getX() + sprite->getWidth();
+    int yTop = sprite->getY();
+    int yBottom = sprite->getY() + sprite->getHeight();
+
+    return isOutOfMap(xLeft, xRight, yTop, yBottom);
+}
+
+bool EntityManager::isOutOfMap(int xLeft, int xRight, int yTop, int yBottom) {
+    return (yTop < 25 || yBottom > 140) || (xLeft < 20 || xRight > 220) || ((xLeft < 46 || xRight > 194) && yTop < 57) || ((xLeft < 62 || xRight > 178) && yTop < 41);
+}
+
+bool EntityManager::canMove(Sprite* sprite, int dx, int dy) {
+    double xLeft = sprite->getX() + dx;
+    double xRight = sprite->getX() + sprite->getWidth() + dx;
+    double yTop = sprite->getY() + dy;
+    double yBottom = sprite->getY() + sprite->getHeight() + dy;
+
+    return !isOutOfMap(xLeft, xRight, yTop, yBottom);
+}
+
+void EntityManager::bossAI() {
+    if (boss->getSprite()->getCenter().x < player->getSprite()->getCenter().x) {
+        if (canMove(boss->getSprite(), 1, 0)) {
+            boss->move(1, 0);
+        }
+    } else if (boss->getSprite()->getCenter().x > player->getSprite()->getCenter().x) {
+        if (canMove(boss->getSprite(), -1, 0)) {
+            boss->move(-1, 0);
+        }
+    }
+
+    if (!boss->isAttackOnCooldown()) {
+        Attack* newAttack = boss->attack();
+        if (newAttack != nullptr) {
+            addAttack(newAttack);
+        }
+    }
+}
+
+void EntityManager::tick(u16 keys) {
     removeAttacksInShadowRealm();
 
     if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(1);
     if (player->isAttackOnCooldown()) player->reduceAttackCooldown(1);
 
+    for (auto & attack : attacks) {
+        if (isOutOfMap(attack->getSprite())) {
+            removeAttack(attack.get());
+        }
+    }
+
+    if (keys & KEY_A) { // attack
+        if (!player->isAttackOnCooldown()) {
+            Attack* newAttack = player->attack();
+            if (newAttack != nullptr) {
+                addAttack(newAttack);
+                //engine->updateSpritesInScene();
+            }
+        }
+        //boss->getSprite()->animateToFrame(0);
+    }
+    if (keys & KEY_B) {
+        boss->getSprite()->animateToFrame(8);
+    }
+    if (keys & KEY_LEFT) {
+        if (canMove(player->getSprite(), -1, 0))
+            player->move(-1, 0);
+    }
+    if (keys & KEY_RIGHT) {
+        if (canMove(player->getSprite(), 1, 0))
+            player->move(1, 0);
+    }
+    if (keys & KEY_UP) {
+        if (canMove(player->getSprite(), 0, -1))
+            player->move(0, -1);
+    }
+    if (keys & KEY_DOWN) {
+        if (canMove(player->getSprite(), 0, 1))
+            player->move(0, 1);
+    }
+    bossAI();
     collisionCheck();
 }
