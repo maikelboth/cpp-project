@@ -8,6 +8,7 @@
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <vector>
+#include "Attack.h"
 
 class Boss {
 private:
@@ -15,7 +16,7 @@ private:
 
     int maxHealth = 20;
     int health = maxHealth;
-    int maxAttackCooldown = 20;
+    int maxAttackCooldown = 60;
     int attackCooldown = 0;
 
 public:
@@ -26,6 +27,7 @@ public:
     void move(int x, int y);
     void moveTo(int x, int y);
     void setVelocity(int dx, int dy);
+    Attack* attack();
 
     bool isAttackOnCooldown() { return attackCooldown > 0; };
     void reduceAttackCooldown(int ticks);

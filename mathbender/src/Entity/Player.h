@@ -17,7 +17,7 @@ private:
 
     int maxHealth = 20;
     int health = maxHealth;
-    int maxAttackCooldown = 20;
+    int maxAttackCooldown = 40;
     int attackCooldown = 0;
 
 public:

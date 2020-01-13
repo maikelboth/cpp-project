@@ -44,10 +44,10 @@ bool Level1Screen::isOutOfMap(int xLeft, int xRight, int yTop, int yBottom) {
 }
 
 bool Level1Screen::canMove(Sprite* sprite, int dx, int dy) {
-    int xLeft = sprite->getX() + dx;
-    int xRight = sprite->getX() + sprite->getWidth() + dx;
-    int yTop = sprite->getY() + dy;
-    int yBottom = sprite->getY() + sprite->getHeight() + dy;
+    double xLeft = sprite->getX() + dx;
+    double xRight = sprite->getX() + sprite->getWidth() + dx;
+    double yTop = sprite->getY() + dy;
+    double yBottom = sprite->getY() + sprite->getHeight() + dy;
 
     return !isOutOfMap(xLeft, xRight, yTop, yBottom);
 }
@@ -66,12 +66,15 @@ void Level1Screen::load() {
 void Level1Screen::tick(u16 keys) {
     int attackAmount = entityManager->getAttacks().size();
 
-    TextStream::instance().setText(std::to_string(entityManager->getSprites().size()), 0, 0);
+//    TextStream::instance().setText(std::to_string(entityManager->getSprites().size()), 0, 0);
     TextStream::instance().setText(std::to_string(ticks), 1, 0);
     TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
     TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
     entityManager->tick();
+    bossAI();
+
+    Player* player = entityManager->getPlayer();
 
     for (Attack* attack : entityManager->getAttacks()) {
         if (isOutOfMap(attack->getSprite())) {
@@ -87,9 +90,9 @@ void Level1Screen::tick(u16 keys) {
         engine->setScene(new MainScreen(engine));
     }
     if (keys & KEY_A) { // attack
-        if (!entityManager->getPlayer()->isAttackOnCooldown()) {
+        if (!player->isAttackOnCooldown()) {
             totalAttacks++;
-            Attack* newAttack = entityManager->getPlayer()->attack();
+            Attack* newAttack = player->attack();
             if (newAttack != nullptr) {
                 entityManager->addAttack(newAttack);
                 //engine->updateSpritesInScene();
@@ -101,24 +104,48 @@ void Level1Screen::tick(u16 keys) {
         entityManager->getBoss()->getSprite()->animateToFrame(8);
     }
     if (keys & KEY_LEFT) {
-        if (canMove(entityManager->getPlayer()->getSprite(), -1, 0))
-            entityManager->getPlayer()->move(-1, 0);
+        if (canMove(player->getSprite(), -1, 0))
+            player->move(-1, 0);
     }
     if (keys & KEY_RIGHT) {
-        if (canMove(entityManager->getPlayer()->getSprite(), 1, 0))
-            entityManager->getPlayer()->move(1, 0);
+        if (canMove(player->getSprite(), 1, 0))
+            player->move(1, 0);
     }
     if (keys & KEY_UP) {
-        if (canMove(entityManager->getPlayer()->getSprite(), 0, -1))
-            entityManager->getPlayer()->move(0, -1);
+        if (canMove(player->getSprite(), 0, -1))
+            player->move(0, -1);
     }
     if (keys & KEY_DOWN) {
-        if (canMove(entityManager->getPlayer()->getSprite(), 0, 1))
-            entityManager->getPlayer()->move(0, 1);
+        if (canMove(player->getSprite(), 0, 1))
+            player->move(0, 1);
     }
 
     if(attackAmount != entityManager->getAttacks().size()){
         engine->updateSpritesInScene();
+    }
+}
+
+void Level1Screen::bossAI() {
+    Boss* boss = entityManager->getBoss();
+    Player* player = entityManager->getPlayer();
+
+    if (boss->getSprite()->getCenter().x < player->getSprite()->getCenter().x) {
+        if (canMove(boss->getSprite(), 1, 0)) {
+            boss->move(1, 0);
+        }
+    } else if (boss->getSprite()->getCenter().x > player->getSprite()->getCenter().x) {
+        if (canMove(boss->getSprite(), -1, 0)) {
+            boss->move(-1, 0);
+        }
+    }
+
+    if (!boss->isAttackOnCooldown()) {
+        totalAttacks++;
+        Attack* newAttack = boss->attack();
+        if (newAttack != nullptr) {
+            entityManager->addAttack(newAttack);
+            //engine->updateSpritesInScene();
+        }
     }
 }
 

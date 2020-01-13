@@ -6,6 +6,7 @@
 #include "Boss.h"
 #include "../Sprite/SpriteBoss.h"
 #include "../Sprite/player.h"
+#include "Ball.h"
 
 Boss::Boss() {}
 
@@ -42,6 +43,18 @@ void Boss::load() {
             .buildPtr();
 }
 
-Sprite * Boss::getSprite() {
+Sprite* Boss::getSprite() {
     return bossSprite.get();
+}
+
+Attack* Boss::attack() {
+    attackCooldown = maxAttackCooldown;
+
+    // Create attack with appropriate velocity dx,dy.
+    Ball* ball = new Ball(false);
+    ball->load();
+    ball->moveTo(bossSprite->getCenter().x - (ball->getSprite()->getWidth()/2), bossSprite->getY() - bossSprite->getHeight() + ball->getSprite()->getHeight());
+    ball->setVelocity(0, 1);
+
+    return ball;
 }
