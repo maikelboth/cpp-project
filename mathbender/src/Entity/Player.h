@@ -30,6 +30,7 @@ public:
     void setVelocity(int dx, int dy);
     Attack* attack();
 
+    bool isDead() { return health <= 0; };
     bool isAttackOnCooldown() { return attackCooldown > 0; };
     void reduceAttackCooldown(int ticks);
     int getAttackCooldown() { return attackCooldown; };

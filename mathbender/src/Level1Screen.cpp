@@ -15,6 +15,7 @@
 #include "Sprite/player.h"
 
 #include "MainScreen.h"
+#include "EndScreen.h"
 
 #include <chrono>
 
@@ -42,6 +43,13 @@ void Level1Screen::load() {
 }
 
 void Level1Screen::tick(u16 keys) {
+    if (entityManager->getPlayer()->isDead()) {
+        // Set scene to end screen.
+        auto scene = new EndScreen(engine);
+        engine->setScene(scene);
+        return;
+    }
+
     int attackAmount = entityManager->getAttacks().size();
 
     TextStream::instance().setText(std::string("HP: " + std::to_string(entityManager->getPlayer()->getHealth()) + "/" + std::to_string(entityManager->getPlayer()->getMaxHealth())), 0, 0);
