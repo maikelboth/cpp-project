@@ -27,6 +27,11 @@ void Boss::reduceAttackCooldown(int ticks) {
     else attackCooldown -= ticks;
 }
 
+void Boss::reduceHealth(int amount) {
+    if (amount > health) health = 0;
+    else health -= amount;
+}
+
 void Boss::setHealth(int amount) {
     if (amount > health) health = 0;
     else health -= amount;

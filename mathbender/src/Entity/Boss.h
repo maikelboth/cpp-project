@@ -33,6 +33,7 @@ public:
     void reduceAttackCooldown(int ticks);
     int getAttackCooldown() { return attackCooldown; };
     int getMaxAttackCooldown() { return maxAttackCooldown; };
+    void reduceHealth(int amount);
     void setHealth(int amount);
     int getHealth() { return health; };
     void setMaxHealth(int amount) { maxHealth = amount; };

@@ -44,10 +44,12 @@ void Level1Screen::load() {
 void Level1Screen::tick(u16 keys) {
     int attackAmount = entityManager->getAttacks().size();
 
-//    TextStream::instance().setText(std::to_string(entityManager->getSprites().size()), 0, 0);
-    TextStream::instance().setText(std::to_string(ticks), 1, 0);
-    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
-    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
+    TextStream::instance().setText(std::string("HP: " + std::to_string(entityManager->getPlayer()->getHealth()) + "/" + std::to_string(entityManager->getPlayer()->getMaxHealth())), 0, 0);
+    TextStream::instance().setText(std::string("Boss HP: " + std::to_string(entityManager->getBoss()->getHealth()) + "/" + std::to_string(entityManager->getBoss()->getMaxHealth())), 1,0);
+
+//    TextStream::instance().setText(std::to_string(ticks), 1, 0);
+//    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
+//    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
     entityManager->tick(keys);
 

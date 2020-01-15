@@ -28,6 +28,11 @@ void Player::reduceAttackCooldown(int ticks) {
     else attackCooldown -= ticks;
 }
 
+void Player::reduceHealth(int amount) {
+    if (amount > health) health = 0;
+    else health -= amount;
+}
+
 void Player::setHealth(int amount) {
     if (amount > health) health = 0;
     else health -= amount;

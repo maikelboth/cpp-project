@@ -14,11 +14,13 @@ class Fire : public Attack {
 private:
     Type attackType = PROJECTILE;
     std::unique_ptr<Sprite> fireSprite;
+    int damage = 5;
 public:
     Fire() = default;
 
     Type getAttackType() override { return attackType; }
     Sprite* getSprite() override { return fireSprite.get(); };
+    int getDamage() override { return damage; };
     void load() override;
 };
 
