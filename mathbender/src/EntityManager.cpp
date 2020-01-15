@@ -56,6 +56,12 @@ void EntityManager::collisionCheck() {
         if (a->get()->getSprite()->collidesWith(*boss->getSprite()) && a->get()->isFriendly()) {
             boss->reduceHealth(a->get()->getDamage());
             removeAttack(a->get());
+            if (boss->isDead()) {
+                // Spawn new boss with more health.
+                level++;
+                boss->setMaxHealth(20 + 4*level);
+                boss->respawn();
+            }
         } else if (a->get()->getSprite()->collidesWith(*player->getSprite()) && !a->get()->isFriendly()) {
             player->reduceHealth(a->get()->getDamage());
             removeAttack(a->get());
@@ -89,6 +95,10 @@ bool EntityManager::canMove(Sprite* sprite, int dx, int dy) {
     double yBottom = sprite->getY() + sprite->getHeight() + dy;
 
     return !isOutOfMap(xLeft, xRight, yTop, yBottom);
+}
+
+int EntityManager::calculateScore() {
+    return level;
 }
 
 void EntityManager::bossAI() {

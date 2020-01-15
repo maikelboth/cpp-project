@@ -19,6 +19,7 @@ private:
     std::unique_ptr<Boss> boss;
     std::vector<std::unique_ptr<Attack>> attacks;
     void removeAttacksInShadowRealm();
+    int level = 0;
 
 public:
     EntityManager();
@@ -29,6 +30,8 @@ public:
     Boss* getBoss() { return boss.get(); };
     std::vector<Attack *> getAttacks();
 
+    int calculateScore();
+    int getLevel() { return level; };
     void collisionCheck();
     void addAttack(Attack* newAttack);
     void removeAttack(Attack* attack);

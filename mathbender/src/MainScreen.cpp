@@ -44,6 +44,6 @@ void MainScreen::tick(u16 keys) {
     }
 }
 
-void MainScreen::writeHCT(const std::string s, int row) {
+void MainScreen::writeHCT(const std::string& s, int row) {
     TextStream::instance().setText(s, row, 15-(s.size()/2));
 }

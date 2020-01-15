@@ -30,7 +30,8 @@ void EndScreen::load() {
 
 void EndScreen::tick(u16 keys) {
     writeHCT("YOU DIED", 9);
-    writeHCT("PRESS START TO TRY AGAIN", 11);
+    writeHCT("YOUR SCORE: " + std::to_string(score), 11);
+    writeHCT("PRESS START TO TRY AGAIN", 13);
 
     if (keys & KEY_START) {
         // restart game
@@ -40,6 +41,6 @@ void EndScreen::tick(u16 keys) {
     }
 }
 
-void EndScreen::writeHCT(const std::string s, int row) {
+void EndScreen::writeHCT(const std::string& s, int row) {
     TextStream::instance().setText(s, row, 15-(s.size()/2));
 }

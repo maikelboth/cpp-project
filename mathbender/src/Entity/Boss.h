@@ -18,6 +18,7 @@ private:
     int health = maxHealth;
     int maxAttackCooldown = 60;
     int attackCooldown = 0;
+    VECTOR spawnPosition = {104, 32};
 
 public:
     Boss();
@@ -29,6 +30,8 @@ public:
     void setVelocity(int dx, int dy);
     Attack* attack();
 
+    void respawn();
+    bool isDead() { return health <= 0; };
     bool isAttackOnCooldown() { return attackCooldown > 0; };
     void reduceAttackCooldown(int ticks);
     int getAttackCooldown() { return attackCooldown; };

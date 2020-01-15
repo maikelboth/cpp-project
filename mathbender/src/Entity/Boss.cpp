@@ -33,8 +33,13 @@ void Boss::reduceHealth(int amount) {
 }
 
 void Boss::setHealth(int amount) {
-    if (amount > health) health = 0;
-    else health -= amount;
+    if (amount > maxHealth) health = maxHealth;
+    else health = amount;
+}
+
+void Boss::respawn() {
+    setHealth(maxHealth);
+    moveTo(spawnPosition.x, spawnPosition.y);
 }
 
 void Boss::load() {
@@ -44,7 +49,7 @@ void Boss::load() {
             .withData(B3Tiles, sizeof(B3Tiles))
             .withSize(SIZE_32_32)
             .withAnimated(1,8, 5)
-            .withLocation(120-16, 32)
+            .withLocation(spawnPosition.x, spawnPosition.y)
             .buildPtr();
 }
 

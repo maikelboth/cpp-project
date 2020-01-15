@@ -11,10 +11,12 @@
 class EndScreen : public Scene {
 private:
     std::unique_ptr<Background> bg;
-    void writeHCT(std::string s, int row); // Horizontal Centered Text
+    void writeHCT(const std::string& s, int row); // Horizontal Centered Text
+    int score;
 public:
     EndScreen(const std::shared_ptr<GBAEngine> &engine);
 
+    void setScore(int score) { this->score = score; };
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
