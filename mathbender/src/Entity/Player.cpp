@@ -57,10 +57,11 @@ void Player::load() {
             .buildPtr();
 
     waterSprite = builder
-            .withData(W2Tiles, sizeof(W2Tiles))
-            .withLocation(GBA_SCREEN_WIDTH + 20, GBA_SCREEN_HEIGHT + 20)
+            .withData(W3Tiles, sizeof(W3Tiles))
+            //.withLocation(GBA_SCREEN_WIDTH + 20, GBA_SCREEN_HEIGHT + 20)
+            .withLocation(0, 32)
             .withAnimated(9, 3)
-            .withSize(SIZE_16_32)
+            .withSize(SIZE_32_64)
             .buildPtr();
 }
 
@@ -78,9 +79,9 @@ std::unique_ptr<Attack> Player::attack(AttackType type) {
     switch (type) {
         case WATER:
             return std::unique_ptr<Attack>(new Water(builder
-                    .withLocation(playerSprite->getCenter().x - (waterSprite->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - waterSprite->getHeight())
+                    .withLocation(playerSprite->getCenter().x - (waterSprite->getWidth() / 2), playerSprite->getY() - waterSprite->getHeight())
                     .withVelocity(0, 0)
-                    .withAnimated(0, 12, 3)
+                    .withAnimated(0, 9, 3)
                     .buildWithDataOf(*waterSprite), true));
         case FIRE:
             return std::unique_ptr<Attack>(new Fireball(builder
