@@ -6,6 +6,7 @@
 #define GBA_SPRITE_ENGINE_PROJECT_PLAYER_H
 
 
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <vector>
 #include "Attack.h"
@@ -14,18 +15,21 @@ class Player {
 
 private:
     std::unique_ptr<Sprite> playerSprite;
+    std::unique_ptr<Sprite> fireballSprite;
+    std::unique_ptr<Sprite> waterSprite;
+    std::unique_ptr<SpriteBuilder<Sprite>> builder = std::make_unique<SpriteBuilder<Sprite>>();
 
     int maxHealth = 20;
     int health = maxHealth;
     int maxAttackCooldown = 40;
     int attackCooldown = 0;
 
-
 public:
     Player();
     enum AttackType {WATER, FIRE};
 
     Sprite* getSprite();
+    std::vector<Sprite*> getTemplateSprites();
     void load();
     void move(int x, int y);
     void moveTo(int x, int y);

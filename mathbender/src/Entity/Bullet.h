@@ -12,14 +12,14 @@
 class Bullet : public Attack {
 
 private:
-    std::unique_ptr<Sprite> bulletSprite;
+    std::unique_ptr<Sprite> sprite;
     bool friendly;
     int damage = 5;
 public:
-    Bullet(bool isFriendly) { friendly = isFriendly; };
+    Bullet(std::unique_ptr<Sprite> sprite, bool isFriendly) : sprite(std::move(sprite)), friendly(isFriendly) {};
     ~Bullet();
 
-    Sprite* getSprite() override { return bulletSprite.get(); };
+    Sprite* getSprite() override { return sprite.get(); };
     int getDamage() override { return damage; };
     void move(int x, int y);
     void moveTo(int x, int y) override;

@@ -3,6 +3,7 @@
 //
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/gba_engine.h>
 #include "Boss.h"
 #include "../Sprite/sprites.h"
 #include "Fireball.h"
@@ -43,13 +44,19 @@ void Boss::respawn() {
 }
 
 void Boss::load() {
-    SpriteBuilder<Sprite> builder;
+    builder = std::make_unique<SpriteBuilder<Sprite>>();
 
     bossSprite = builder
-            .withData(B4Tiles, sizeof(B4Tiles))
+            ->withData(B4Tiles, sizeof(B4Tiles))
             .withSize(SIZE_32_32)
             .withAnimated(0,8, 5)
             .withLocation(spawnPosition.x, spawnPosition.y)
+            .buildPtr();
+
+    bulletSprite = builder
+            ->withData(bulletTiles, sizeof(bulletTiles))
+            .withLocation(GBA_SCREEN_WIDTH + 20, GBA_SCREEN_HEIGHT + 20)
+            .withSize(SIZE_16_16)
             .buildPtr();
 }
 
@@ -57,11 +64,15 @@ Sprite* Boss::getSprite() {
     return bossSprite.get();
 }
 
+std::vector<Sprite *> Boss::getTemplateSprites() {
+    return {bulletSprite.get()};
+}
+
 Attack* Boss::attack() {
     attackCooldown = maxAttackCooldown;
 
     // Create attack with appropriate velocity dx,dy.
-    auto* bullet = new Bullet(false);
+    auto* bullet = new Bullet(builder->buildWithDataOf(*bulletSprite), false);
     bullet->load();
     bullet->moveTo(bossSprite->getCenter().x - (bullet->getSprite()->getWidth() / 2), bossSprite->getY() + bossSprite->getHeight() - bullet->getSprite()->getHeight());
     bullet->setVelocity(0, 1);

@@ -13,6 +13,8 @@
 class Boss {
 private:
     std::unique_ptr<Sprite> bossSprite;
+    std::unique_ptr<Sprite> bulletSprite;
+    std::unique_ptr<SpriteBuilder<Sprite>> builder;
 
     int maxHealth = 20;
     int health = maxHealth;
@@ -24,6 +26,7 @@ public:
     Boss();
 
     Sprite * getSprite();
+    std::vector<Sprite*> getTemplateSprites();
     void load();
     void move(int x, int y);
     void moveTo(int x, int y);

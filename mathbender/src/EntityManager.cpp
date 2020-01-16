@@ -6,6 +6,7 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <algorithm>
 #include "EntityManager.h"
+#include "Entity/Water.h"
 
 EntityManager::EntityManager() {}
 
@@ -16,6 +17,14 @@ std::vector<Sprite *> EntityManager::getSprites() {
 
     for (auto & attack : attacks) {
         sprites.push_back(attack.get()->getSprite());
+    }
+
+    for (auto & templateSprite : player->getTemplateSprites()) {
+        sprites.push_back(templateSprite);
+    }
+
+    for (auto & templateSprite : boss->getTemplateSprites()) {
+        sprites.push_back(templateSprite);
     }
 
     return sprites;
@@ -129,6 +138,12 @@ void EntityManager::tick(u16 keys) {
     for (auto & attack : attacks) {
         if (isOutOfMap(attack->getSprite())) {
             removeAttack(attack.get());
+        }
+
+        if (typeid(attack) == typeid(Water)) { // Check if attack is Water attack
+            if (attack->getSprite()->getNumberOfFrames()-1 == attack->getSprite()->getCurrentFrame()) {
+                removeAttack(attack.get());
+            }
         }
     }
 

@@ -11,14 +11,14 @@
 class Water : public Attack {
 
 private:
-    std::unique_ptr<Sprite> waterSprite;
+    std::unique_ptr<Sprite> sprite;
     bool friendly;
     int damage = 5;
 public:
-    Water(bool isFriendly) { friendly = isFriendly;};
+    Water(std::unique_ptr<Sprite> sprite, bool isFriendly) : sprite(std::move(sprite)), friendly(isFriendly) {};
     ~Water();
 
-    Sprite* getSprite() override { return waterSprite.get(); };
+    Sprite* getSprite() override { return sprite.get(); };
     int getDamage() override { return damage; };
     void load() override;
     void move(int x, int y);

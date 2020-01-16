@@ -11,14 +11,14 @@
 class Fireball : public Attack {
 
 private:
-    std::unique_ptr<Sprite> fireballSprite;
+    std::unique_ptr<Sprite> sprite;
     bool friendly;
     int damage = 5;
 public:
-    Fireball(bool isFriendly) { friendly = isFriendly;};
+    Fireball(std::unique_ptr<Sprite> sprite, bool isFriendly) : sprite(std::move(sprite)), friendly(isFriendly) {};
     ~Fireball();
 
-    Sprite* getSprite() override { return fireballSprite.get(); };
+    Sprite* getSprite() override { return sprite.get(); };
     int getDamage() override { return damage; };
     void load() override;
     void move(int x, int y);

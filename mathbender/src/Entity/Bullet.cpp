@@ -7,27 +7,20 @@
 #include "../Sprite/sprites.h"
 
 void Bullet::move(int x, int y) {
-    moveTo(bulletSprite->getPos().x + x, bulletSprite->getPos().y + y);
+    moveTo(sprite->getPos().x + x, sprite->getPos().y + y);
 }
 
 void Bullet::moveTo(int x, int y) {
-    bulletSprite->moveTo(x, y);
+    sprite->moveTo(x, y);
 }
 
 void Bullet::setVelocity(int dx, int dy) {
-    bulletSprite->setVelocity(dx, dy);
+    sprite->setVelocity(dx, dy);
 }
 
-void Bullet::load() {
-    SpriteBuilder<Sprite> builder;
-
-    bulletSprite = builder
-            .withData(bulletTiles, sizeof(bulletTiles))
-            .withSize(SIZE_16_16)
-            .buildPtr();
-}
+void Bullet::load() {}
 
 Bullet::~Bullet() {
-    bulletSprite->moveTo(0, 0);
-    bulletSprite.reset();
+    sprite->moveTo(0, 0);
+    sprite.reset();
 }
