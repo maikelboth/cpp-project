@@ -31,7 +31,7 @@ public:
     void move(int x, int y);
     void moveTo(int x, int y);
     void setVelocity(int dx, int dy);
-    Attack* attack();
+    std::unique_ptr<Attack> attack();
 
     void respawn();
     bool isDead() { return health <= 0; };

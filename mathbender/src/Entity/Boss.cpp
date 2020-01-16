@@ -68,11 +68,11 @@ std::vector<Sprite *> Boss::getTemplateSprites() {
     return {bulletSprite.get()};
 }
 
-Attack* Boss::attack() {
+std::unique_ptr<Attack> Boss::attack() {
     attackCooldown = maxAttackCooldown;
 
     // Create attack with appropriate velocity dx,dy.
-    auto* bullet = new Bullet(builder->buildWithDataOf(*bulletSprite), false);
+    std::unique_ptr<Attack> bullet = std::unique_ptr<Attack>(new Bullet(builder->buildWithDataOf(*bulletSprite), false));
     bullet->moveTo(bossSprite->getCenter().x - (bullet->getSprite()->getWidth() / 2), bossSprite->getY() + bossSprite->getHeight() - bullet->getSprite()->getHeight());
     bullet->setVelocity(0, 1);
 

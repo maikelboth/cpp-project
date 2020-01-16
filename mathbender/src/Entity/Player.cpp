@@ -44,20 +44,20 @@ void Player::setHealth(int amount) {
 void Player::load() {
 
     playerSprite = builder
-            ->withData(playerTiles, sizeof(playerTiles))
+            .withData(playerTiles, sizeof(playerTiles))
             .withSize(SIZE_16_16)
             .withLocation(120, 100)
             .buildPtr();
 
     fireballSprite = builder
-            ->withData(F3Tiles, sizeof(F3Tiles))
+            .withData(F3Tiles, sizeof(F3Tiles))
             .withLocation(1,1)
             .withAnimated(0,12, 10)
             .withSize(SIZE_8_32)
             .buildPtr();
 
     waterSprite = builder
-            ->withData(W2Tiles, sizeof(W2Tiles))
+            .withData(W2Tiles, sizeof(W2Tiles))
             .withLocation(GBA_SCREEN_WIDTH + 20, GBA_SCREEN_HEIGHT + 20)
             .withAnimated(9, 3)
             .withSize(SIZE_16_32)
@@ -72,23 +72,27 @@ std::vector<Sprite *> Player::getTemplateSprites() {
     return {fireballSprite.get(), waterSprite.get()};
 }
 
-Attack* Player::attack(AttackType type) {
+std::unique_ptr<Attack> Player::attack(AttackType type) {
     attackCooldown = maxAttackCooldown;
-
-    Attack *attack = nullptr;
 
     switch (type) {
         case WATER:
-            attack = new Water(builder->buildWithDataOf(*waterSprite), true);
-            break;
+            return std::unique_ptr<Attack>(new Water(builder
+                    .withLocation(playerSprite->getCenter().x - (waterSprite->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - waterSprite->getHeight())
+                    .withVelocity(0, 0)
+                    .withAnimated(0, 12, 3)
+                    .buildWithDataOf(*waterSprite), true));
         case FIRE:
-            attack = new Fireball(builder->buildWithDataOf(*fireballSprite), true);
-            break;
+            return std::unique_ptr<Attack>(new Fireball(builder
+                    .withLocation(playerSprite->getCenter().x - (fireballSprite->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - fireballSprite->getHeight())
+                    .withVelocity(0, -1)
+                    .withAnimated(0, 12, 3)
+                    .buildWithDataOf(*fireballSprite), true));
     }
-    if (attack == nullptr)
-        attack = new Fireball(builder->buildWithDataOf(*fireballSprite), true);
 
-    attack->moveTo(playerSprite->getCenter().x - (attack->getSprite()->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - attack->getSprite()->getHeight());
-    if (type != WATER) attack->setVelocity(0, -1);
-    return attack;
+    return std::unique_ptr<Attack>(new Fireball(builder
+        .withLocation(playerSprite->getCenter().x - (fireballSprite->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - fireballSprite->getHeight())
+        .withVelocity(0, -1)
+        .withAnimated(0, 12, 3)
+        .buildWithDataOf(*fireballSprite), true));
 }

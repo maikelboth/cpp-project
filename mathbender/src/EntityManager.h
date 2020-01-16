@@ -17,7 +17,7 @@ class EntityManager {
 private:
     std::unique_ptr<Player> player;
     std::unique_ptr<Boss> boss;
-    std::vector<std::unique_ptr<Attack>> attacks;
+    std::vector<std::shared_ptr<Attack>> attacks;
     void removeAttacksInShadowRealm();
     int level = 0;
 
@@ -33,7 +33,7 @@ public:
     int calculateScore();
     int getLevel() { return level; };
     void collisionCheck();
-    void addAttack(Attack* newAttack);
+    void addAttack(const std::shared_ptr<Attack>& newAttack);
     void removeAttack(Attack* attack);
     bool isOutOfMap(Sprite* sprite);
     bool isOutOfMap(int xLeft, int xRight, int yTop, int yBottom);

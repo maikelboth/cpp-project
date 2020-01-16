@@ -47,9 +47,10 @@ std::vector<Attack *> EntityManager::getAttacks() {
     return result;
 }
 
-void EntityManager::addAttack(Attack * newAttack) {
+void EntityManager::addAttack(const std::shared_ptr<Attack>& newAttack) {
+    if (newAttack == nullptr) return;
     newAttack->getSprite()->setStayWithinBounds(false);
-    attacks.insert(attacks.begin(), std::unique_ptr<Attack>(newAttack));
+    attacks.insert(attacks.begin(), newAttack);
 }
 
 void EntityManager::removeAttack(Attack* attack) {
@@ -122,10 +123,7 @@ void EntityManager::bossAI() {
     }
 
     if (!boss->isAttackOnCooldown()) {
-        Attack* newAttack = boss->attack();
-        if (newAttack != nullptr) {
-            addAttack(newAttack);
-        }
+        addAttack(boss->attack());
     }
 }
 
@@ -140,8 +138,8 @@ void EntityManager::tick(u16 keys) {
             removeAttack(attack.get());
         }
 
-        if (typeid(attack) == typeid(Water)) { // Check if attack is Water attack
-            if (attack->getSprite()->getNumberOfFrames()-1 == attack->getSprite()->getCurrentFrame()) {
+        if (dynamic_cast<const Water*>(attack.get()) != nullptr) { // Check if attack is Water attack
+            if (attack->getSprite()->getCurrentFrame() >= attack->getSprite()->getNumberOfFrames()-1) {
                 removeAttack(attack.get());
             }
         }
@@ -149,18 +147,12 @@ void EntityManager::tick(u16 keys) {
 
     if (keys & KEY_A) { // attack
         if (!player->isAttackOnCooldown()) {
-            Attack* newAttack = player->attack(Player::FIRE);
-            if (newAttack != nullptr) {
-                addAttack(newAttack);
-            }
+            addAttack(player->attack(Player::FIRE));
         }
     }
     if (keys & KEY_B) {
         if (!player->isAttackOnCooldown()) {
-            Attack* newAttack = player->attack(Player::WATER);
-            if (newAttack != nullptr) {
-                addAttack(newAttack);
-            }
+            addAttack(player->attack(Player::WATER));
         }
     }
     if (keys & KEY_LEFT) {

@@ -17,7 +17,7 @@ private:
     std::unique_ptr<Sprite> playerSprite;
     std::unique_ptr<Sprite> fireballSprite;
     std::unique_ptr<Sprite> waterSprite;
-    std::unique_ptr<SpriteBuilder<Sprite>> builder = std::make_unique<SpriteBuilder<Sprite>>();
+    SpriteBuilder<Sprite> builder;
 
     int maxHealth = 20;
     int health = maxHealth;
@@ -34,7 +34,7 @@ public:
     void move(int x, int y);
     void moveTo(int x, int y);
     void setVelocity(int dx, int dy);
-    Attack* attack(AttackType type);
+    std::unique_ptr<Attack> attack(AttackType type);
 
     bool isDead() { return health <= 0; };
     bool isAttackOnCooldown() { return attackCooldown > 0; };
