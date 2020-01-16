@@ -35,6 +35,7 @@ public:
     void collisionCheck();
     void addAttack(const std::shared_ptr<Attack>& newAttack);
     void removeAttack(Attack* attack);
+    bool isOutOfMap(Attack* attack);
     bool isOutOfMap(Sprite* sprite);
     bool isOutOfMap(int xLeft, int xRight, int yTop, int yBottom);
     bool canMove(Sprite* sprite, int dx, int dy);

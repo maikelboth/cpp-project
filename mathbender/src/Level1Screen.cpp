@@ -14,6 +14,7 @@
 
 #include "MainScreen.h"
 #include "EndScreen.h"
+#include "Entity/Water.h"
 
 #include <chrono>
 
@@ -55,6 +56,11 @@ void Level1Screen::tick(u16 keys) {
     TextStream::instance().setText(std::string("HP: " + std::to_string(entityManager->getPlayer()->getHealth()) + "/" + std::to_string(entityManager->getPlayer()->getMaxHealth())), 2, 0);
     TextStream::instance().setText(std::string("Boss HP: " + std::to_string(entityManager->getBoss()->getHealth()) + "/" + std::to_string(entityManager->getBoss()->getMaxHealth())), 3,0);
 
+    for (auto & attack : entityManager->getAttacks()) {
+        if (dynamic_cast<const Water*>(attack) != nullptr) {
+            TextStream::instance().setText(std::to_string(attack->getHitboxY()), 5, 0);
+        }
+    }
 //    TextStream::instance().setText(std::to_string(ticks), 1, 0);
 //    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
 //    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);

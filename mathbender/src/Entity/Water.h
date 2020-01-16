@@ -23,6 +23,11 @@ public:
     void moveTo(int x, int y) override;
     void setVelocity(int dx, int dy) override;
     bool isFriendly() override { return friendly; };
+    bool collidesWith(Sprite &sprite2) override;
+    u32 getHitboxX() override;
+    u32 getHitboxY() override;
+    u32 getHitboxWidth() override;
+    u32 getHitboxHeight() override;
 };
 
 

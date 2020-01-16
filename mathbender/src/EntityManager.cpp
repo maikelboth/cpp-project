@@ -56,14 +56,14 @@ void EntityManager::addAttack(const std::shared_ptr<Attack>& newAttack) {
 void EntityManager::removeAttack(Attack* attack) {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
         if (a->get() == attack) {
-            a->get()->moveTo(0, 200); // sends sprites to the shadow-realm
+            a->get()->moveTo(GBA_SCREEN_WIDTH + 20, GBA_SCREEN_HEIGHT + 20); // sends sprites to the shadow-realm
         }
     }
 }
 
 void EntityManager::collisionCheck() {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
-        if (a->get()->getSprite()->collidesWith(*boss->getSprite()) && a->get()->isFriendly()) {
+        if (a->get()->collidesWith(*boss->getSprite()) && a->get()->isFriendly()) {
             boss->reduceHealth(a->get()->getDamage());
             removeAttack(a->get());
             if (boss->isDead()) {
@@ -72,7 +72,7 @@ void EntityManager::collisionCheck() {
                 boss->setMaxHealth(20 + 4*level);
                 boss->respawn();
             }
-        } else if (a->get()->getSprite()->collidesWith(*player->getSprite()) && !a->get()->isFriendly()) {
+        } else if (a->get()->collidesWith(*player->getSprite()) && !a->get()->isFriendly()) {
             player->reduceHealth(a->get()->getDamage());
             removeAttack(a->get());
         }
@@ -83,6 +83,10 @@ void EntityManager::removeAttacksInShadowRealm() {
     for (auto a = attacks.begin(); a < attacks.end(); a++) {
         if (a->get()->getSprite()->getY() > 128) attacks.erase(a);
     }
+}
+
+bool EntityManager::isOutOfMap(Attack* attack) {
+    return isOutOfMap(attack->getHitboxX(), attack->getHitboxX() + attack->getHitboxWidth(), attack->getHitboxY(), attack->getHitboxY() + attack->getHitboxHeight());
 }
 
 bool EntityManager::isOutOfMap(Sprite* sprite) {
@@ -99,10 +103,10 @@ bool EntityManager::isOutOfMap(int xLeft, int xRight, int yTop, int yBottom) {
 }
 
 bool EntityManager::canMove(Sprite* sprite, int dx, int dy) {
-    double xLeft = sprite->getX() + dx;
-    double xRight = sprite->getX() + sprite->getWidth() + dx;
-    double yTop = sprite->getY() + dy;
-    double yBottom = sprite->getY() + sprite->getHeight() + dy;
+    u32 xLeft = sprite->getX() + dx;
+    u32 xRight = sprite->getX() + sprite->getWidth() + dx;
+    u32 yTop = sprite->getY() + dy;
+    u32 yBottom = sprite->getY() + sprite->getHeight() + dy;
 
     return !isOutOfMap(xLeft, xRight, yTop, yBottom);
 }
@@ -134,7 +138,7 @@ void EntityManager::tick(u16 keys) {
     if (player->isAttackOnCooldown()) player->reduceAttackCooldown(1);
 
     for (auto & attack : attacks) {
-        if (isOutOfMap(attack->getSprite())) {
+        if (isOutOfMap(attack.get())) {
             removeAttack(attack.get());
         }
 

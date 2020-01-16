@@ -21,6 +21,11 @@ public:
     virtual void moveTo(int x, int y) = 0;
     virtual void setVelocity(int dx, int dy) = 0;
     virtual bool isFriendly() = 0;
+    virtual bool collidesWith(Sprite &sprite2) = 0;
+    virtual u32 getHitboxX() = 0;
+    virtual u32 getHitboxY() = 0;
+    virtual u32 getHitboxWidth() = 0;
+    virtual u32 getHitboxHeight() = 0;
 };
 
 
