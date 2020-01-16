@@ -46,9 +46,9 @@ void Boss::load() {
     SpriteBuilder<Sprite> builder;
 
     bossSprite = builder
-            .withData(B3Tiles, sizeof(B3Tiles))
+            .withData(B4Tiles, sizeof(B4Tiles))
             .withSize(SIZE_32_32)
-            .withAnimated(1,8, 5)
+            .withAnimated(0,8, 5)
             .withLocation(spawnPosition.x, spawnPosition.y)
             .buildPtr();
 }

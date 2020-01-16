@@ -22,9 +22,8 @@ void Bullet::load() {
     SpriteBuilder<Sprite> builder;
 
     bulletSprite = builder
-            .withData(F3Tiles, sizeof(F3Tiles))
-            .withAnimated(12, 3)
-            .withSize(SIZE_8_32)
+            .withData(bulletTiles, sizeof(bulletTiles))
+            .withSize(SIZE_16_16)
             .buildPtr();
 }
 

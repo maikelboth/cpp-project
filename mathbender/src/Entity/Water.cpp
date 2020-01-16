@@ -22,7 +22,7 @@ void Water::load() {
     SpriteBuilder<Sprite> builder;
 
     waterSprite = builder
-            .withData(F3Tiles, sizeof(F3Tiles))
+            .withData(W2Tiles, sizeof(W2Tiles))
             .withAnimated(12, 3)
             .withSize(SIZE_8_32)
             .buildPtr();
