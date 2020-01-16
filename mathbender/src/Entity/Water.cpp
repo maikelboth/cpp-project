@@ -24,7 +24,7 @@ void Water::load() {
     waterSprite = builder
             .withData(W2Tiles, sizeof(W2Tiles))
             .withAnimated(12, 3)
-            .withSize(SIZE_8_32)
+            .withSize(SIZE_16_32)
             .buildPtr();
 }
 
