@@ -17,10 +17,3 @@ void Water::moveTo(int x, int y) {
 void Water::setVelocity(int dx, int dy) {
     sprite->setVelocity(dx, dy);
 }
-
-void Water::load() {}
-
-Water::~Water() {
-    sprite->moveTo(0, 0);
-    sprite.reset();
-}

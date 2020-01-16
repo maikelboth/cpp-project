@@ -88,7 +88,6 @@ Attack* Player::attack(AttackType type) {
     if (attack == nullptr)
         attack = new Fireball(builder->buildWithDataOf(*fireballSprite), true);
 
-    attack->load();
     attack->moveTo(playerSprite->getCenter().x - (attack->getSprite()->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - attack->getSprite()->getHeight());
     if (type != WATER) attack->setVelocity(0, -1);
     return attack;

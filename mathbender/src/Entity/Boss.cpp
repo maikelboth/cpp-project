@@ -73,7 +73,6 @@ Attack* Boss::attack() {
 
     // Create attack with appropriate velocity dx,dy.
     auto* bullet = new Bullet(builder->buildWithDataOf(*bulletSprite), false);
-    bullet->load();
     bullet->moveTo(bossSprite->getCenter().x - (bullet->getSprite()->getWidth() / 2), bossSprite->getY() + bossSprite->getHeight() - bullet->getSprite()->getHeight());
     bullet->setVelocity(0, 1);
 

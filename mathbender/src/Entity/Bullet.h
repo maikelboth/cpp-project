@@ -17,7 +17,6 @@ private:
     int damage = 5;
 public:
     Bullet(std::unique_ptr<Sprite> sprite, bool isFriendly) : sprite(std::move(sprite)), friendly(isFriendly) {};
-    ~Bullet();
 
     Sprite* getSprite() override { return sprite.get(); };
     int getDamage() override { return damage; };
@@ -25,7 +24,6 @@ public:
     void moveTo(int x, int y) override;
     void setVelocity(int dx, int dy) override;
     bool isFriendly() override { return friendly; };
-    void load() override;
 };
 
 

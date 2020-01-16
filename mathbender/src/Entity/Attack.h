@@ -18,7 +18,6 @@ public:
 
     virtual Sprite * getSprite() = 0;
     virtual int getDamage() = 0;
-    virtual void load() = 0;
     virtual void moveTo(int x, int y) = 0;
     virtual void setVelocity(int dx, int dy) = 0;
     virtual bool isFriendly() = 0;

@@ -16,11 +16,9 @@ private:
     int damage = 5;
 public:
     Fireball(std::unique_ptr<Sprite> sprite, bool isFriendly) : sprite(std::move(sprite)), friendly(isFriendly) {};
-    ~Fireball();
 
     Sprite* getSprite() override { return sprite.get(); };
     int getDamage() override { return damage; };
-    void load() override;
     void move(int x, int y);
     void moveTo(int x, int y) override;
     void setVelocity(int dx, int dy) override;
