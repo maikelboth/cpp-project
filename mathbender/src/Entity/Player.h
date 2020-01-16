@@ -20,15 +20,17 @@ private:
     int maxAttackCooldown = 40;
     int attackCooldown = 0;
 
+
 public:
     Player();
+    enum AttackType {WATER, FIRE};
 
     Sprite* getSprite();
     void load();
     void move(int x, int y);
     void moveTo(int x, int y);
     void setVelocity(int dx, int dy);
-    Attack* attack();
+    Attack* attack(AttackType type);
 
     bool isDead() { return health <= 0; };
     bool isAttackOnCooldown() { return attackCooldown > 0; };

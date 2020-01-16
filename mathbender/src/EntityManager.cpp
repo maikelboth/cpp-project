@@ -134,16 +134,19 @@ void EntityManager::tick(u16 keys) {
 
     if (keys & KEY_A) { // attack
         if (!player->isAttackOnCooldown()) {
-            Attack* newAttack = player->attack();
+            Attack* newAttack = player->attack(Player::FIRE);
             if (newAttack != nullptr) {
                 addAttack(newAttack);
-                //engine->updateSpritesInScene();
             }
         }
-        //boss->getSprite()->animateToFrame(0);
     }
     if (keys & KEY_B) {
-        boss->getSprite()->animateToFrame(8);
+        if (!player->isAttackOnCooldown()) {
+            Attack* newAttack = player->attack(Player::WATER);
+            if (newAttack != nullptr) {
+                addAttack(newAttack);
+            }
+        }
     }
     if (keys & KEY_LEFT) {
         if (canMove(player->getSprite(), -1, 0))

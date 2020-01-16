@@ -5,14 +5,12 @@
 #include "Level1Screen.h"
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #include <memory>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "Sprite/level1BG.h"
-//#include "Sprite/kul.h"
-#include "Sprite/player.h"
+#include "Sprite/sprites.h"
 
 #include "MainScreen.h"
 #include "EndScreen.h"

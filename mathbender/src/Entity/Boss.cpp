@@ -4,9 +4,9 @@
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Boss.h"
-#include "../Sprite/SpriteBoss.h"
-#include "../Sprite/player.h"
-#include "Ball.h"
+#include "../Sprite/sprites.h"
+#include "Fireball.h"
+#include "Bullet.h"
 
 Boss::Boss() {}
 
@@ -61,10 +61,10 @@ Attack* Boss::attack() {
     attackCooldown = maxAttackCooldown;
 
     // Create attack with appropriate velocity dx,dy.
-    Ball* ball = new Ball(false);
-    ball->load();
-    ball->moveTo(bossSprite->getCenter().x - (ball->getSprite()->getWidth()/2), bossSprite->getY() - bossSprite->getHeight() + ball->getSprite()->getHeight());
-    ball->setVelocity(0, 1);
+    auto* bullet = new Bullet(false);
+    bullet->load();
+    bullet->moveTo(bossSprite->getCenter().x - (bullet->getSprite()->getWidth() / 2), bossSprite->getY() - bossSprite->getHeight() + bullet->getSprite()->getHeight());
+    bullet->setVelocity(0, 1);
 
-    return ball;
+    return bullet;
 }

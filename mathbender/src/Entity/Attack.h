@@ -15,9 +15,7 @@ private:
 
 public:
     Attack() = default;
-    enum Type {PROJECTILE, MELEE, STATIONARY};
 
-    virtual Type getAttackType() = 0;
     virtual Sprite * getSprite() = 0;
     virtual int getDamage() = 0;
     virtual void load() = 0;

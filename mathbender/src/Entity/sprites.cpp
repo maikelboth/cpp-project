@@ -5,9 +5,9 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "Player.h"
-//#include "../Sprite/kul.h"
-#include "../Sprite/player.h"
-#include "Ball.h"
+#include "../Sprite/sprites.h"
+#include "Fireball.h"
+#include "Water.h"
 
 Player::Player() {}
 
@@ -52,14 +52,26 @@ Sprite* Player::getSprite() {
     return playerSprite.get();
 }
 
-Attack * Player::attack() {
+Attack* Player::attack(AttackType type) {
     attackCooldown = maxAttackCooldown;
 
-    // Create attack with appropriate velocity dx,dy.
-    Ball* ball = new Ball(true);
-    ball->load();
-    ball->moveTo(playerSprite->getCenter().x - (ball->getSprite()->getWidth()/2), playerSprite->getY() + playerSprite->getHeight() - ball->getSprite()->getHeight());
-    ball->setVelocity(0, -1);
+    Attack *attack = nullptr;
 
-    return ball;
+    switch (type) {
+        case WATER:
+            attack = new Water(true);
+            break;
+        case FIRE:
+            attack = new Fireball(true);
+            break;
+    }
+    if (attack == nullptr)
+        attack = new Fireball(true);
+
+    attack->load();
+    attack->moveTo(playerSprite->getCenter().x - (attack->getSprite()->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - attack->getSprite()->getHeight());
+    attack->setVelocity(0, -1);
+
+    return attack;
+
 }
