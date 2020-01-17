@@ -10,3 +10,7 @@ De speler heeft de keuze tussen twee verschillende aanvallen. De eerste aanval i
 De vijand schiet terug met kogels. 
 
 Wanneer de speler geen levenspunten meer heeft, stopt het spel en wordt een eindscherm getoond met de score die behaald werd. Het spel kan dan herstart worden door op de start knop te drukken.
+
+## Domain Class Diagram
+
+![Image of Domain Class Diagram](https://github.com/maikelboth/cpp-project/blob/master/mathbender/MathbenderUML.png)
