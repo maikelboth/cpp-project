@@ -14,7 +14,6 @@
 
 #include "MainScreen.h"
 #include "EndScreen.h"
-#include "Entity/Water.h"
 
 #include "Sound/agnikai5.h"
 
@@ -54,15 +53,10 @@ void Level1Screen::tick(u16 keys) {
 
     int attackAmount = entityManager->getAttacks().size();
 
-    TextStream::instance().setText(std::string("LEVEL " + std::to_string(entityManager->getLevel())), 0, 12);
-    TextStream::instance().setText(std::string("HP: " + std::to_string(entityManager->getPlayer()->getHealth()) + "/" + std::to_string(entityManager->getPlayer()->getMaxHealth())), 2, 0);
-    TextStream::instance().setText(std::string("Boss HP: " + std::to_string(entityManager->getBoss()->getHealth()) + "/" + std::to_string(entityManager->getBoss()->getMaxHealth())), 3,0);
-
-    for (auto & attack : entityManager->getAttacks()) {
-        if (dynamic_cast<const Water*>(attack) != nullptr) {
-            TextStream::instance().setText(std::to_string(attack->getHitboxY()), 5, 0);
-        }
-    }
+    TextStream::instance().setText(std::string("HP: " + std::to_string(entityManager->getPlayer()->getHealth()) + "/" + std::to_string(entityManager->getPlayer()->getMaxHealth()) + "    LEVEL " + std::to_string(entityManager->getLevel())), 0, 0);
+    TextStream::instance().setText(std::string("Boss HP: " + std::to_string(entityManager->getBoss()->getHealth()) + "/" + std::to_string(entityManager->getBoss()->getMaxHealth())), 1,0);
+    TextStream::instance().setText(std::string("Fire:  " + std::to_string(!(entityManager->getPlayer()->isFireAttackOnCooldown()))), 18, 0);
+    TextStream::instance().setText(std::string("Water: " + std::to_string(!(entityManager->getPlayer()->isWaterAttackOnCooldown()))), 19, 0);
     entityManager->tick(keys);
 
     if (keys & KEY_SELECT) {
