@@ -18,7 +18,7 @@ Wanneer de speler geen levenspunten meer heeft, stopt het spel en wordt een eind
 We vertrekken vanuit de Main waarin een eerste scene wordt opgeroepen met een instantie van de GBA-Engine. Er zijn 3 scenes waarvan MainScreen als default wordt opgeroepen in de Main. De gebruiker doorloopt het spel en zal zo tussen de 3 scenes wisselen. Level1Screen is de scene waar het spelen gebeurt. Deze heeft namelijk. een Boss als vijand, een Speler en verschillende rondvliegende, zowel vriendelijke als vijandige, Attacks. Er zijn 3 soorten attacks (Fireball, Water, Bullet) die allemaal erven van de hoofdklasse Attack.
 
 ## Gebruikte Sprites
-De sprite van de Boss is een aangepaste versie van 'buff alligator' van Nuclear Throne. Voor ontwerpen van de tilemap voor de backgrounds is vertrokken van onderstaande tileset van 'OddPotatoGift'.
+De sprite van de Boss is een aangepaste versie van 'buff alligator' van Nuclear Throne van de studio Vlambeer. Voor het ontwerpen van de tilemap voor de backgrounds is vertrokken van onderstaande tileset van 'OddPotatoGift'.
 
 https://oddpotatogift.itch.io/16x16-dungeon-tileset
 https://nuclear-throne.fandom.com/wiki/Buff_Alligator
