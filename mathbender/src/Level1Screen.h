@@ -13,14 +13,9 @@ class Level1Screen : public Scene {
 private:
     std::unique_ptr<Background> bg;
     std::unique_ptr<EntityManager> entityManager;
-    int totalAttacks = 0;
-    int ticks = 0;
-    int attackCountdown = 20;
 
 public:
-
     Level1Screen(const std::shared_ptr<GBAEngine> &engine);
-    //FlyingStuffScene(std::shared_ptr<GBAEngine> engine) : Scene(engine), rotation(0), rotationDiff(128), scrollX(0), scrollY(0) {}
 
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

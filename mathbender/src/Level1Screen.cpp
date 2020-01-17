@@ -16,8 +16,6 @@
 #include "EndScreen.h"
 #include "Entity/Water.h"
 
-#include <chrono>
-
 Level1Screen::Level1Screen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Sprite *> Level1Screen::sprites() {
@@ -61,17 +59,10 @@ void Level1Screen::tick(u16 keys) {
             TextStream::instance().setText(std::to_string(attack->getHitboxY()), 5, 0);
         }
     }
-//    TextStream::instance().setText(std::to_string(ticks), 1, 0);
-//    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
-//    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
 
     entityManager->tick(keys);
 
     if (keys & KEY_START) {
-
-    }
-
-    if (keys & KEY_SELECT) {
         engine->setScene(new MainScreen(engine));
     }
 
