@@ -59,7 +59,6 @@ void Level1Screen::tick(u16 keys) {
             TextStream::instance().setText(std::to_string(attack->getHitboxY()), 5, 0);
         }
     }
-
     entityManager->tick(keys);
 
     if (keys & KEY_START) {
