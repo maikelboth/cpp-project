@@ -21,8 +21,10 @@ private:
 
     int maxHealth = 20;
     int health = maxHealth;
-    int maxAttackCooldown = 40;
-    int attackCooldown = 0;
+    int maxFireAttackCooldown = 40;
+    int maxWaterAttackCooldown = 100;
+    int fireAttackCooldown = 0;
+    int waterAttackCooldown = 0;
 
 public:
     Player();
@@ -37,10 +39,10 @@ public:
     std::unique_ptr<Attack> attack(AttackType type);
 
     bool isDead() { return health <= 0; };
-    bool isAttackOnCooldown() { return attackCooldown > 0; };
-    void reduceAttackCooldown(int ticks);
-    int getAttackCooldown() { return attackCooldown; };
-    int getMaxAttackCooldown() { return maxAttackCooldown; };
+    bool isFireAttackOnCooldown() {return fireAttackCooldown > 0; };
+    bool isWaterAttackOnCooldown() {return waterAttackCooldown > 0; };
+    void reduceFireAttackCooldown(int ticks);
+    void reduceWaterAttackCooldown(int ticks);
     void reduceHealth(int amount);
     void setHealth(int amount);
     int getHealth() { return health; };

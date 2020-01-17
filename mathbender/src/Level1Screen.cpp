@@ -16,7 +16,8 @@
 #include "EndScreen.h"
 #include "Entity/Water.h"
 
-#include <chrono>
+#include "Sound/agnikai5.h"
+
 
 Level1Screen::Level1Screen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
@@ -39,6 +40,7 @@ void Level1Screen::load() {
 
     bg = std::make_unique<Background>(1, level1BGTiles, sizeof(level1BGTiles), level1BGMap, sizeof(level1BGMap));
     bg->useMapScreenBlock(16);
+    engine->enqueueMusic(agnikai5, sizeof(agnikai5));
 }
 
 void Level1Screen::tick(u16 keys) {

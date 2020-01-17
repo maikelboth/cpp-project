@@ -135,7 +135,8 @@ void EntityManager::tick(u16 keys) {
     removeAttacksInShadowRealm();
 
     if (boss->isAttackOnCooldown()) boss->reduceAttackCooldown(1);
-    if (player->isAttackOnCooldown()) player->reduceAttackCooldown(1);
+    if (player->isFireAttackOnCooldown()) player->reduceFireAttackCooldown(1);
+    if (player->isWaterAttackOnCooldown()) player->reduceWaterAttackCooldown(1);
 
     for (auto & attack : attacks) {
         if (isOutOfMap(attack.get())) {
@@ -150,12 +151,12 @@ void EntityManager::tick(u16 keys) {
     }
 
     if (keys & KEY_A) { // attack
-        if (!player->isAttackOnCooldown()) {
+        if (!player->isFireAttackOnCooldown()) {
             addAttack(player->attack(Player::FIRE));
         }
     }
     if (keys & KEY_B) {
-        if (!player->isAttackOnCooldown()) {
+        if (!player->isWaterAttackOnCooldown()) {
             addAttack(player->attack(Player::WATER));
         }
     }
