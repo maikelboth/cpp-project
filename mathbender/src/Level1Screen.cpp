@@ -67,6 +67,7 @@ void Level1Screen::tick(u16 keys) {
 
     if (keys & KEY_SELECT) {
         engine->setScene(new MainScreen(engine));
+        return;
     }
 
     if (attackAmount != entityManager->getAttacks().size()) {
