@@ -13,6 +13,8 @@
 
 #include "Level1Screen.h"
 
+#include "Sound/avatar3.h"
+
 MainScreen::MainScreen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Sprite *> MainScreen::sprites() {
@@ -30,6 +32,7 @@ void MainScreen::load() {
 
     bg = std::make_unique<Background>(1, mainScreenBGTiles, sizeof(mainScreenBGTiles), mainScreenBGMap, sizeof(mainScreenBGMap));
     bg->useMapScreenBlock(16);
+    engine->enqueueMusic(avatar3, sizeof(avatar3));
 }
 
 void MainScreen::tick(u16 keys) {

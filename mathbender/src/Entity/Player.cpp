@@ -26,9 +26,14 @@ void Player::setVelocity(int dx, int dy) {
     playerSprite->setVelocity(dx, dy);
 }
 
-void Player::reduceAttackCooldown(int ticks) {
-    if (ticks > attackCooldown) attackCooldown = 0;
-    else attackCooldown -= ticks;
+void Player::reduceFireAttackCooldown(int ticks) {
+    if (ticks > fireAttackCooldown) fireAttackCooldown = 0;
+    else fireAttackCooldown -= ticks;
+}
+
+void Player::reduceWaterAttackCooldown(int ticks) {
+    if (ticks > waterAttackCooldown) waterAttackCooldown = 0;
+    else waterAttackCooldown -= ticks;
 }
 
 void Player::reduceHealth(int amount) {
@@ -73,16 +78,19 @@ std::vector<Sprite *> Player::getTemplateSprites() {
 }
 
 std::unique_ptr<Attack> Player::attack(AttackType type) {
-    attackCooldown = maxAttackCooldown;
+
+
 
     switch (type) {
         case WATER:
+            waterAttackCooldown = maxWaterAttackCooldown;
             return std::unique_ptr<Attack>(new Water(builder
                     .withLocation(playerSprite->getCenter().x, playerSprite->getCenter().y - waterSprite->getHeight())
                     .withVelocity(0, 0)
                     .withAnimated(0, 9, 4)
                     .buildWithDataOf(*waterSprite), true));
         case FIRE:
+            fireAttackCooldown = maxFireAttackCooldown;
             return std::unique_ptr<Attack>(new Fireball(builder
                     .withLocation(playerSprite->getCenter().x - (fireballSprite->getWidth() / 2), playerSprite->getY() + playerSprite->getHeight() - fireballSprite->getHeight())
                     .withVelocity(0, -1)

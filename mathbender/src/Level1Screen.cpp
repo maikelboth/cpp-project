@@ -16,6 +16,9 @@
 #include "EndScreen.h"
 #include "Entity/Water.h"
 
+#include "Sound/agnikai5.h"
+
+
 Level1Screen::Level1Screen(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Sprite *> Level1Screen::sprites() {
@@ -37,6 +40,7 @@ void Level1Screen::load() {
 
     bg = std::make_unique<Background>(1, level1BGTiles, sizeof(level1BGTiles), level1BGMap, sizeof(level1BGMap));
     bg->useMapScreenBlock(16);
+    engine->enqueueMusic(agnikai5, sizeof(agnikai5));
 }
 
 void Level1Screen::tick(u16 keys) {
@@ -59,9 +63,17 @@ void Level1Screen::tick(u16 keys) {
             TextStream::instance().setText(std::to_string(attack->getHitboxY()), 5, 0);
         }
     }
+//    TextStream::instance().setText(std::to_string(ticks), 1, 0);
+//    TextStream::instance().setText(std::to_string(attackAmount), 2, 0);
+//    TextStream::instance().setText(std::to_string(entityManager->getPlayer()->getAttackCooldown()), 3, 0);
+
     entityManager->tick(keys);
 
     if (keys & KEY_START) {
+
+    }
+
+    if (keys & KEY_SELECT) {
         engine->setScene(new MainScreen(engine));
     }
 
