@@ -28,8 +28,6 @@ std::vector<Background *> MainScreen::backgrounds() {
 }
 
 void MainScreen::load() {
-
-    //foregroundPalette = std::make_unique<ForegroundPaletteManager>(sharedPal, sizeof(sharedPal));
     backgroundPalette = std::make_unique<BackgroundPaletteManager>(mainScreenBGPal, sizeof(mainScreenBGPal));
 
     bg = std::make_unique<Background>(1, mainScreenBGTiles, sizeof(mainScreenBGTiles), mainScreenBGMap, sizeof(mainScreenBGMap));

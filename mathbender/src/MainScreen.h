@@ -12,7 +12,6 @@
 class MainScreen : public Scene {
 private:
     std::unique_ptr<Background> bg;
-    //std::unique_ptr<EntityManager> entityManager;
     void writeHCT(const std::string& s, int row); // Horizontal Centered Text
 
 
