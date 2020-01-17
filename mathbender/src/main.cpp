@@ -6,7 +6,6 @@
 int main() {
 
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
-    //auto scene = new Level1Screen(engine);
     auto scene = new MainScreen(engine);
     engine->setScene(scene);
 
